@@ -110,7 +110,7 @@ def town_page(t, idx):
 <section class="alt"><div class="wrap"><p class="label">What a customer said</p>{review_block(rev)}</div></section>
 <section><div class="wrap"><p class="label">Nearby towns</p><div class="links">{others}</div>
 <div class="ctas"><a class="btn btn-call" href="{TEL}" data-where="town-bottom">{ICON_PHONE}Call {TELTXT}</a></div></div></section>'''
-    title = ('Collision Repair in West Haven, CT | New England Collision' if here else f'Collision Repair Near {name}, CT | New England Collision, West Haven')
+    title = ('Body Shop in West Haven, CT, on Derby Ave | New England Collision' if here else f'Collision Repair Near {name}, CT | New England Collision, West Haven')
     desc = (f'From {name} to 465 Derby Ave, West Haven: {miles}, {mins}. Family owned, 30 years, same location. Call (203) 389-6400.')
     return path, page(path, title, desc, body, base, crumbs=crumbs)
 
