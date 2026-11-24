@@ -1,13 +1,12 @@
 /* NEC chat helper. Scripted buttons only. No AI, no third-party widget, no network calls.
    Details live in memory only (no cookies, no localStorage) and leave the page only when the
-   visitor presses send in their own app (Message Us, off until texting is confirmed). */
+   visitor presses send in their own app. While SMS_ON is false, no details are asked for (Mirror P2 fix A). */
 (function(){
   var PHONE='tel:+12033896400', PHONE_TXT='(203) 389-6400';
   var SMS='sms:+12033896400';                 /* [CONFIRM] can (203) 389-6400 receive text messages? */
   var SMS_ON=false;  /* Mirror fix 6: Message Us send stays off until Phones & Admin confirms (203) 389-6400 takes texts */
   var CARWISE='https://www.carwise.com/online-photo-estimate/new-england-collision-west-haven-ct-06516/462487';
   var LAW1='You have the right to choose the licensed repair shop where the damage to your motor vehicle will be repaired.';
-  var LAW2='Your insurance company cannot require you to use a specific repair shop.';
   var t=window.NECtrack||function(){};
   var d={}, opener=null, panel, log, opts, live;
   var PATHS={
@@ -57,12 +56,12 @@
   /* ---- flow ---- */
   function start(){
     log.innerHTML='';d={};
-    say('Hi, this is New England Collision\u2019s quick help. Tap an answer below, and a real person from our shop follows up. First, is everyone okay? If anyone is hurt, please call 911.');
+    say(SMS_ON?'Hi, this is New England Collision\u2019s quick help. Tap an answer below, and a real person from our shop follows up. First, is everyone okay? If anyone is hurt, please call 911.':'Hi, this is New England Collision\u2019s quick help. Tap an answer below. First, is everyone okay? If anyone is hurt, please call 911.');
     choices([{label:'Everyone is okay',cls:'btn-call',go:help},{label:'Someone is hurt',go:hurt}]);
   }
   function hurt(){
     say('Please call 911 now. People come first. When you are ready, we are here to help with the car.');
-    choices([{label:'Call 911',href:'tel:911',cls:'btn-call'},{label:'I am okay to keep going',go:help}]);
+    choices([{label:'Call 911',href:'tel:911',cls:'btn-call'},{label:'Call '+PHONE_TXT,href:PHONE},{label:'I am okay to keep going',go:help}]);
   }
   function help(){
     say('We are glad you are okay. Take a breath. We can help from here. What would help most right now?');
@@ -77,16 +76,24 @@
       say('<span class="law">'+LAW1+'</span>');
     }else if(k==='claim'){
       say('We are a repair shop, so we cannot give legal advice. For legal questions, please ask your attorney. We can help with the repair side of things. We accept Letters of Protection from attorneys. Call us and we will help you sort it out.');
-      say('<span class="law">'+LAW2+'</span>');
+      say('In plain words: your insurance company can\u2019t require you to use a specific repair shop.');
     }else{
+      if(!SMS_ON){
+        say('You can send photos of the damage from your phone through CarWise, and our shop looks them over.');
+        return choices([{label:'Send photos on CarWise',href:CARWISE,ext:true,cls:'btn-call',on:function(){t('carwise_click',{where:'chat'});}},{label:'Call '+PHONE_TXT,href:PHONE}]);
+      }
       say('You can send photos of the damage from your phone through CarWise, and our shop looks them over. First, a few quick details so we know who you are.');
       return details();
+    }
+    if(!SMS_ON){
+      say('The fastest way to get help is to call us. A real person at our shop answers during business hours.');
+      return choices([{label:'Call '+PHONE_TXT,href:PHONE,cls:'btn-call'},{label:'Send photos on CarWise',href:CARWISE,ext:true}]);
     }
     say('Would you like someone from our shop to follow up with you? It takes about a minute.');
     choices([{label:'Yes, please follow up',cls:'btn-call',go:details},{label:'Call '+PHONE_TXT,href:PHONE}]);
   }
   function details(){
-    say('<span class="privacy">This page doesn\u2019t save what you type. It reaches our shop only when you press send in your own messages app. We use it only to help with your repair, and we never sell it.</span>');
+    say('<span class="privacy">This page doesn\u2019t save what you type. We use your information only to help with your repair, and we never sell it.</span>');
     ask('What is your name?',[{k:'name',label:'Your name',ac:'name'}],function(){
       ask('Thanks, '+esc(d.name)+'. What is the best phone number to reach you?',[{k:'phone',label:'Phone number',type:'tel',ac:'tel',im:'tel'}],function(){
         ask('What are you driving?',[{k:'year',label:'Year',im:'numeric',ph:'2019'},{k:'make',label:'Make',ph:'Honda'},{k:'model',label:'Model',ph:'CR-V'}],function(){

@@ -86,9 +86,9 @@ def page(path, title, desc, body, base, ld=None, crumbs=None, og_type='website')
 <div class="bar" role="region" aria-label="Quick contact">
 <a class="btn btn-call" href="{TEL}" data-where="sticky">{ICON_PHONE}Call</a>
 <a class="btn btn-soft" href="{MAPS}" data-where="sticky" target="_blank" rel="noopener">Directions</a>
-<a class="btn btn-soft" href="#chat" data-chat data-where="sticky">{ICON_MSG}Message Us</a>
+<a class="btn btn-soft" href="#chat" data-chat data-where="sticky">{ICON_MSG}Quick help</a>
 </div>
-<a class="btn btn-call launch" href="#chat" data-chat data-where="launcher">{ICON_MSG}Message Us</a>
+<a class="btn btn-call launch" href="#chat" data-chat data-where="launcher">{ICON_MSG}Quick help</a>
 <script>
 (function(){{var v=document.querySelector('.rv-view'),b=document.querySelector('.rv-pause');if(!v||!b)return;
 function set(p){{v.classList.toggle('paused',p);b.setAttribute('aria-pressed',p?'true':'false');b.textContent=p?'Play reviews':'Pause reviews';}}
@@ -110,7 +110,7 @@ def FOOTER(base):
 <p>465 Derby Ave<br>West Haven, CT 06516<br><a href="{TEL}" data-where="footer">{TELTXT}</a></p>
 <p>Family owned. 30 years, same location.<br>Se habla español.</p></div>
 <div><p class="label">Hours</p><p>Mon to Fri<br>8:00 AM to 4:30 PM</p><p>Thanksgiving week: closed Thursday, Nov 26. Friday, Nov 27, closed for walk-ins, and we're answering the phone.</p>
-<p class="label">Pages</p><ul class="flinks">{''.join(f'<li><a href="{base}{p}">{n}</a></li>' for n,p in PAGES_NAV + SERVICE_LINKS)}</ul></div>
+<p class="label">Pages</p><ul class="flinks">{''.join(f'<li><a href="{base}{p}">{n}</a></li>' for n,p in PAGES_NAV + ([('Towns we serve','towns/')] if TOWNS_ON else []) + SERVICE_LINKS)}</ul></div>
 <div><p class="label">Find us</p><p><a href="{MAPS}" target="_blank" rel="noopener" data-where="footer">Directions</a><br>
 <a href="{FB}" target="_blank" rel="noopener" data-where="footer">Facebook</a> {C('CONFIRM page URL')}<br>
 <a href="{GREVIEWS}" target="_blank" rel="noopener" data-where="reviews">Google reviews</a><br>
@@ -141,7 +141,7 @@ def home():
 <div class="ctas">
 <a class="btn btn-call" href="{TEL}" data-where="hero">{ICON_PHONE}Call {TELTXT}</a>
 <a class="btn btn-soft" href="{CARWISE}" target="_blank" rel="noopener" data-where="hero">{ICON_CAM}Send photos for an estimate</a>
-<a class="btn btn-soft" href="#chat" data-chat data-where="hero">{ICON_MSG}Message Us</a>
+<a class="btn btn-soft" href="#chat" data-chat data-where="hero">{ICON_MSG}Quick help</a>
 </div>
 <ul class="trust">
 <li><span class="stars" aria-hidden="true">★</span> 4.7 on Google</li>
@@ -181,13 +181,13 @@ def home():
 <p class="label">Your insurance, your choice</p>
 <h2 id="ins-h">In Connecticut, you choose the shop.</h2>
 <p class="quote-law">{LAW1}</p>
-<p class="quote-law">{LAW2}</p>
+<p>In plain words: your insurance company can't require you to use a specific repair shop.</p>
 <p class="src">Source: Connecticut General Statutes, Sec. 38a-354. <a href="https://www.cga.ct.gov/current/pub/chap_700.htm#sec_38a-354" target="_blank" rel="noopener">Read the law</a>. More on <a href="your-right-to-choose/">your right to choose</a>.</p>
 <div class="cards">
 <div class="card"><h3>All insurance companies welcome</h3><p>We're an independent shop. Whoever your insurer is, you can bring your car to us.</p></div>
 <div class="card"><h3>Inspections inside the shop</h3><p>Insurance inspections happen inside our shop, so you and the adjuster stay out of the snow.</p></div>
 </div>
-<div class="ctas"><a class="btn btn-call" href="{TEL}" data-where="insurance">{ICON_PHONE}Call {TELTXT}</a><a class="btn btn-soft" href="#chat" data-chat data-where="insurance">{ICON_MSG}Message Us</a></div>
+<div class="ctas"><a class="btn btn-call" href="{TEL}" data-where="insurance">{ICON_PHONE}Call {TELTXT}</a><a class="btn btn-soft" href="#chat" data-chat data-where="insurance">{ICON_MSG}Quick help</a></div>
 </div></section>
 
 <section id="fix" aria-labelledby="fix-h"><div class="wrap">
@@ -215,7 +215,7 @@ def home():
 <p>Say hello on <a href="{FB}" target="_blank" rel="noopener" data-where="visit">Facebook</a> {C('CONFIRM page URL')}, or <a href="{REVIEW}" target="_blank" rel="noopener" data-where="visit">leave us a Google review</a>.</p>
 </div>
 <div><p class="motto serif" style="font-size:30px;line-height:1.3;color:var(--ink)"><i>Nobody plans an accident. We'll help from here.</i></p>
-<p>Family owned on Derby Ave since 1996. Call, send photos, or tap Message Us, and a real person from our shop gets back to you.</p></div>
+<p>Family owned on Derby Ave since 1996. Call or send photos, and a real person from our shop helps you from there.</p></div>
 </div></section>
 '''
     return page('', 'New England Collision | Auto Body and Collision Repair, West Haven CT',

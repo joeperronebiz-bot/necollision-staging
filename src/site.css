@@ -175,3 +175,4 @@ footer .label{color:#a39d93}
 .flinks{list-style:none;margin:0;padding:0;columns:2;gap:16px}
 .flinks li{margin-bottom:6px}
 @media (max-width:430px){.brand small{display:none}.brand b{font-size:16px}.brand img{width:46px;height:46px}.top .wrap{gap:8px}}
+.store{margin:0 0 20px}.store img{display:block;width:100%;height:auto;border-radius:var(--r);background:var(--bone)}
