@@ -1,5 +1,5 @@
 # Phase 2 pages. Executed by build.py (shares its globals).
-SERVICE_LINKS = [('Collision repair','services/collision-repair/'),('Dent repair','services/dent-repair/'),('Paint and color matching','services/paint-color-matching/'),('Frame straightening','services/frame-straightening/'),('Insurance claim help','services/insurance-claim-help/'),('Towing and rental help','services/towing-rental-help/')]
+SERVICE_LINKS = [('Collision repair','services/collision-repair/'),('Dent repair','services/dent-repair/'),('Paint and color matching','services/paint-color-matching/'),('Frame straightening','services/frame-straightening/'),('Insurance questions','services/insurance-claim-help/'),('Towing help','services/towing-help/')]
 REVS = {r['name']: r for r in json.load(open(os.path.join(ROOT, '..', 'data', 'reviews-used.json')))}
 OLD = 'from old site, CONFIRM still offered'
 
@@ -23,7 +23,7 @@ def ctas(base, where, photos=True):
 def review_block(name):
     r = REVS[name]
     return f'''<figure class="one-review"><p class="stars" aria-label="5 out of 5 stars" style="margin:0 0 6px">★★★★★</p><blockquote>{E(r["text"])}</blockquote>
-<figcaption><span class="who">{E(r["name"])}</span> <span class="meta">· Google · {E(r["when"])}</span><br><a href="{GREVIEWS}" target="_blank" rel="noopener" data-where="reviews">Read our Google reviews</a></figcaption></figure>'''
+<figcaption><span class="who">{E(r["name"])}</span> <span class="meta">· Google</span><br><a href="{GREVIEWS}" target="_blank" rel="noopener" data-where="reviews">See our reviews on Google</a></figcaption></figure>'''
 
 def hero(base, crumbs, label, h1, lead, where):
     return f'''<section class="hero"><div class="wrap">{crumbs_html(base, crumbs)}
@@ -37,6 +37,7 @@ def related(base, skip):
     return '<div class="links">' + ''.join(f'<a href="{base}{p}">{n}</a>' for n,p in SERVICE_LINKS if p != skip) + '</div>'
 
 def photo(base, name, alt, cap):
+    return pending('Shop photo goes here once there is a no-people shop photo, or staff say they are okay to be shown (Mirror fix 12).')
     return f'''<div class="photo"><img src="{base}assets/img/{name}-720.webp" srcset="{base}assets/img/{name}-400.webp 400w, {base}assets/img/{name}-720.webp 720w" sizes="(min-width:820px) 520px, 100vw" width="720" height="720" loading="lazy" decoding="async" alt="{E(alt)}"></div><p class="cap">{cap} {C('CONFIRM: staff okay to show this photo')}</p>'''
 
 def service_ld(name, desc, path):
@@ -67,7 +68,7 @@ def services_pages():
 <ul>
 <li>You talk to our front office. Tell us what happened and where the car is.</li>
 <li>If the car can't be driven, we don't tow, but we can call a trusted local tow company for you.</li>
-<li>If there's an insurance claim, we help you with it. {C(OLD)}</li>
+<li>All insurance companies are welcome.</li>
 <li>Insurance inspections happen inside our shop, so you and the adjuster stay out of the snow.</li>
 <li>We repair the car here at 465 Derby Ave and call you when it's ready.</li>
 </ul>
@@ -87,7 +88,7 @@ def services_pages():
 <ul>
 <li>Send photos from your phone, or stop by 465 Derby Ave, Mon to Fri, 8:00 AM to 4:30 PM.</li>
 <li>We look at the dent and talk through the repair with you.</li>
-<li>If it's part of an insurance claim, we help with that too. {C(OLD)}</li>
+<li>All insurance companies are welcome.</li>
 </ul>
 <p>Dent repair is part of our auto body work. {C('CONFIRM: dent repair named as its own service')}</p>
 {pending('Hail damage repair and paintless dent repair (PDR) are NOT verified. They stay off the page until Joe confirms NEC offers them.')}
@@ -127,32 +128,31 @@ def services_pages():
 </div>{photo(base,'structure-repair','A technician working under a car in the New England Collision shop','Structural work in our shop, from our own website.')}</div></section>''',
       'Lucas Cecchetto', 'Frame straightening'))
     # 5 Insurance
-    out.append(service_page('services/insurance-claim-help/', 'Insurance claim help',
-      'Insurance Claim Help After a Crash | New England Collision, West Haven CT',
+    out.append(service_page('services/insurance-claim-help/', 'Insurance questions',
+      'Insurance and Your Right to Choose a Shop | New England Collision, West Haven CT',
       'In Connecticut you choose the repair shop. All insurance companies welcome at New England Collision, 465 Derby Ave, West Haven. Call (203) 389-6400.',
-      'Services · Insurance claim help', "Insurance claim help, so you're not doing it alone.",
+      'Services · Insurance', "Insurance questions after a crash? Start here.",
       "Insurance can feel like the hardest part. Bring your questions to us. All insurance companies welcome.",
       f'''<section class="bone"><div class="wrap"><p class="label">Your right to choose</p><h2>In Connecticut, the shop is your choice.</h2>{law_block(base)}</div></section>
 <section><div class="wrap"><div class="cards">
 <div class="card"><h3>All insurance companies welcome</h3><p>We're an independent shop. Whoever insures you, or the other driver, you can bring your car to us.</p></div>
 <div class="card"><h3>Inspections inside our shop</h3><p>Insurance inspections happen inside our shop, so you and the adjuster stay out of the snow.</p></div>
-<div class="card"><h3>Help with the claim</h3><p>Insurance claim assistance, from your first call. {C(OLD)}</p></div>
 <div class="card"><h3>What to have ready</h3><p>Your claim number if you have one, the other driver's insurance details if you have them, and a few photos of the damage.</p></div>
 </div></div></section>''',
-      'Emily Loquine', 'Insurance claim assistance'))
+      'Emily Loquine', None))
+    # insurance claim assistance is held for Joe's A/D (Mirror fix 8)
     # 6 Towing and rental
-    out.append(service_page('services/towing-rental-help/', 'Towing and rental help',
-      'Towing and Rental Car Help After a Crash | New England Collision, West Haven CT',
-      "We don't tow, but we can call trusted local tow companies for you. Rental car help too. New England Collision, West Haven. Call (203) 389-6400.",
-      'Services · Towing and rental help', 'Need a tow or a rental? Start with one call.',
-      "Take a breath. One call to us, and we'll help you sort out the car and how you'll get around.",
+    out.append(service_page('services/towing-help/', 'Towing help',
+      'Towing Help After a Crash | New England Collision, West Haven CT',
+      "We don't tow, but we can call trusted local tow companies for you. New England Collision, 465 Derby Ave, West Haven. Call (203) 389-6400.",
+      'Services · Towing help', 'Need a tow? Start with one call.',
+      "Take a breath. One call to us, and we'll help you sort out what happens to the car.",
       f'''<section><div class="wrap"><div class="cards">
 <div class="card"><h3>Towing</h3><p>We don't tow. We've worked with trusted local tow companies for years, and we can call them directly for you.</p></div>
 <div class="card"><h3>Already at a tow yard?</h3><p>Every situation is different. Call us and we'll help you sort it out.</p></div>
-<div class="card"><h3>Rental car</h3><p>Rental car delivery and pickup (some exceptions apply). {C(OLD)}</p></div>
 <div class="card"><h3>The choice is yours</h3><p>{LAW1}</p></div>
 </div>
-{pending('Not on the page: names of tow companies, tow response times, rental partners. The CEO profile mentions "Hertz Rentals On Site" and "Enterprise Concierge Available"; both are unverified and left out.')}
+{pending('Rental car delivery and pickup is held for Joe\u2019s A/D (Mirror fix 8). Not on the page: names of tow companies, tow response times, rental partners. The CEO profile mentions "Hertz Rentals On Site" and "Enterprise Concierge Available"; both are unverified and left out.')}
 </div></section>''',
       'Erin Eberhardt', None))
     return out
@@ -165,28 +165,27 @@ def services_hub():
       'services/dent-repair/': 'Dents from a parking lot, a pole or a fender bender.',
       'services/paint-color-matching/': 'Paint that blends with the rest of your car.',
       'services/frame-straightening/': 'Getting the structure back where it belongs after a hard hit.',
-      'services/insurance-claim-help/': 'Your right to choose, and help with the claim.',
-      'services/towing-rental-help/': "We don't tow, but we can call trusted tow companies. Rental help too.",
+      'services/insurance-claim-help/': 'Your right to choose, and all insurance companies welcome.',
+      'services/towing-help/': "We don't tow, but we can call trusted local tow companies for you.",
     }
     cs = ''.join(f'<div class="card"><h3>{n}</h3><p>{cards[p]}</p><a class="more" href="{base}{p}">{n}</a></div>' for n,p in SERVICE_LINKS)
     body = hero(base, crumbs, 'Services', 'How we can help', "Family owned. 30 years, same location. Here's what our shop does after an accident.", 'services-hero') + f'''
 <section><div class="wrap"><p>{C('Services from our old website. CONFIRM each is still offered.')}</p><div class="cards">{cs}</div></div></section>'''
     return 'services/', page('services/', 'Auto Body and Collision Services | New England Collision, West Haven CT',
-      'Collision repair, dent repair, paint, frame straightening, insurance claim help, towing and rental help. 465 Derby Ave, West Haven. (203) 389-6400.', body, base, crumbs=crumbs)
+      'Collision repair, dent repair, paint, frame straightening, insurance questions and towing help. 465 Derby Ave, West Haven. (203) 389-6400.', body, base, crumbs=crumbs)
 
 FAQS = [
  ("What should I do right after an accident?", "First, make sure everyone is okay. If anyone is hurt, call 911. When you're safe, call us at (203) 389-6400 and we'll help you with the next steps.", True),
- ("Do I have to use the shop my insurance company picks?", "No. Connecticut law says: \u201cYou have the right to choose the licensed repair shop where the damage to your vehicle will be repaired.\u201d And: \u201cYour insurance company cannot require you to use a specific repair shop.\u201d (Conn. Gen. Stat. Sec. 38a-354)", True),
+ ("Do I have to use the shop my insurance company picks?", "No. Connecticut law says: \u201cYou have the right to choose the licensed repair shop where the damage to your motor vehicle will be repaired.\u201d And: \u201cYour insurance company cannot require you to use a specific repair shop.\u201d (Conn. Gen. Stat. Sec. 38a-354)", True),
  ("Do you work with my insurance company?", "All insurance companies are welcome. We're an independent shop, so you can bring your car to us whoever your insurer is.", True),
  ("Where does the insurance inspection happen?", "Inside our shop, so you and the adjuster stay out of the snow.", True),
  ("Do you tow?", "We don't tow. We've worked with trusted local tow companies for years, and we can call them directly for you.", True),
- ("My car is at a tow yard. What do I do?", "Call us at (203) 389-6400 and we'll help you sort it out. You have the right to choose the licensed repair shop where the damage to your vehicle will be repaired.", True),
+ ("My car is at a tow yard. What do I do?", "Call us at (203) 389-6400 and we'll help you sort it out. You have the right to choose the licensed repair shop where the damage to your motor vehicle will be repaired.", True),
  ("Can I get an estimate without coming in?", "Yes. You can send photos of the damage from your phone through CarWise, or call us and we'll talk it through.", True),
- ("Can you help me with a rental car?", "Rental car delivery and pickup (some exceptions apply) was listed on our old website. Call us and ask.", False),
- ("What are your hours?", "Monday to Friday, 8:00 AM to 4:30 PM.", True),
+ ("What are your hours?", "Monday to Friday, 8:00 AM to 4:30 PM. Thanksgiving week: closed Thursday, Nov 26. Friday, Nov 27, closed for walk-ins, and we're answering the phone.", True),
  ("Where are you?", "465 Derby Ave, West Haven, CT 06516. Derby Ave is Route 34, in the Allingtown part of West Haven.", True),
  ("Do you speak Spanish?", "S\u00ed. Se habla espa\u00f1ol.", True),
- ("Do you have a military discount?", "Yes. Veterans and active military get 10% off labor. Please bring your military ID. The discount is on labor only.", True),
+ ("Do you have a veterans discount?", "Yes. Veterans get 10% off labor, all year. Just let us know you served when you call or stop by.", True),
  ("How long have you been in business?", "Since 1996. We're family owned, 30 years at the same location on Derby Ave.", True),
  ("How long will my repair take?", "It depends on the damage and the parts. We'll talk it through with you once we've seen the car, and you can call us any time we're open to ask how it's going.", True),
 ]
@@ -202,7 +201,7 @@ def faq_page():
 <section><div class="wrap faq prose">{items}
 <p class="src">Questions marked {C(OLD)} are left out of the FAQ schema until confirmed.</p></div></section>'''
     return 'faq/', page('faq/', 'FAQ: Collision Repair, Insurance and Towing | New England Collision',
-      'Answers about insurance, your right to choose a shop in CT, towing, rentals, hours and estimates. New England Collision, West Haven. (203) 389-6400.', body, base, ld=[ld], crumbs=crumbs)
+      'Answers about insurance, your right to choose a shop in CT, towing, hours and estimates. New England Collision, West Haven. (203) 389-6400.', body, base, ld=[ld], crumbs=crumbs)
 
 def about_page():
     base = '../'
@@ -213,7 +212,7 @@ def about_page():
 <p>We opened at 465 Derby Ave in 1996, and we're still there. Our owner has been at the shop for 28 years, running it for 20 and owning it for 15.</p>
 <p>Our motto is on our logo: <i class="serif" style="font-size:22px">Relax, it was an accident.</i> Nobody plans a crash. Our job is to make the rest of it easier.</p>
 <p>We're an independent, family-owned shop. All insurance companies are welcome, and se habla español.</p>
-<p>Veterans and active military get 10% off labor. Please bring your military ID. Labor only.</p>
+<p>Veterans get 10% off labor, all year. Just let us know you served when you call or stop by.</p>
 {pending('Staff names and roles are not on the page. Add only with Joe\u2019s okay (copy rule: staff by role).')}
 </div>{photo(base,'front-office','Two members of the New England Collision office team on the phones at their desks','Our front office at 465 Derby Ave, from our own website.')}</div></section>
 <section class="alt"><div class="wrap"><p class="label">What a neighbor said</p>{review_block('Lucas Cecchetto')}{ctas(base,'about-bottom',False)}</div></section>'''
@@ -244,7 +243,7 @@ def contact_page():
 <section class="visit"><div class="wrap grid2"><div>
 <dl><dt>Address</dt><dd>465 Derby Ave, West Haven, CT 06516</dd>
 <dt>Phone</dt><dd><a href="{TEL}" data-where="contact">{TELTXT}</a></dd>
-<dt>Hours</dt><dd>Mon to Fri, 8:00 AM to 4:30 PM</dd>
+<dt>Hours</dt><dd>Mon to Fri, 8:00 AM to 4:30 PM<br>Thanksgiving week: closed Thursday, Nov 26. Friday, Nov 27, closed for walk-ins, and we're answering the phone.</dd>
 <dt>Language</dt><dd>Se habla español</dd>
 <dt>Facebook</dt><dd><a href="{FB}" target="_blank" rel="noopener" data-where="contact">New England Collision on Facebook</a> {C('CONFIRM page URL')}</dd></dl>
 <div class="ctas"><a class="btn btn-call" href="{TEL}" data-where="contact">{ICON_PHONE}Call {TELTXT}</a><a class="btn btn-soft" href="{MAPS}" target="_blank" rel="noopener" data-where="contact">Get directions</a></div>
@@ -266,5 +265,12 @@ def main():
         open(os.path.join(d, 'index.html'), 'w').write(htmltxt)
     open(os.path.join(OUT, '.nojekyll'), 'w').write('')
     open(os.path.join(OUT, 'robots.txt'), 'w').write('# STAGING: block all crawlers. At launch the build writes the open version (see LAUNCH.md)\nUser-agent: *\nDisallow: /\n' if STAGING else f'User-agent: *\nAllow: /\nSitemap: {CANON}/sitemap.xml\n')
-    open(os.path.join(OUT, 'sitemap.xml'), 'w').write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + ''.join(f'<url><loc>{CANON}/{p}</loc><lastmod>2026-11-24</lastmod></url>\n' for p,_ in pages) + '</urlset>\n')
+    sm = ('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + ''.join(f'<url><loc>{CANON}/{p}</loc><lastmod>2026-11-24</lastmod></url>\n' for p,_ in pages) + '</urlset>\n')
+    kit = os.path.join(ROOT, 'launch-kit'); os.makedirs(kit, exist_ok=True)
+    open(os.path.join(kit, 'sitemap.xml'), 'w').write(sm)
+    smp = os.path.join(OUT, 'sitemap.xml')
+    if STAGING:
+        if os.path.exists(smp): os.remove(smp)
+    else:
+        open(smp, 'w').write(sm)
     print(len(pages), 'pages')

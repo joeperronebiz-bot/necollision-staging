@@ -1,12 +1,12 @@
 /* NEC chat helper. Scripted buttons only. No AI, no third-party widget, no network calls.
    Details live in memory only (no cookies, no localStorage) and leave the page only when the
-   visitor taps Message Us or Email instead and presses send in their own app. */
+   visitor presses send in their own app (Message Us, off until texting is confirmed). */
 (function(){
   var PHONE='tel:+12033896400', PHONE_TXT='(203) 389-6400';
   var SMS='sms:+12033896400';                 /* [CONFIRM] can (203) 389-6400 receive text messages? */
-  var EMAIL='leads@necollision.com';           /* [CONFIRM: which NEC inbox] placeholder, NOT a confirmed address */
+  var SMS_ON=false;  /* Mirror fix 6: Message Us send stays off until Phones & Admin confirms (203) 389-6400 takes texts */
   var CARWISE='https://www.carwise.com/online-photo-estimate/new-england-collision-west-haven-ct-06516/462487';
-  var LAW1='You have the right to choose the licensed repair shop where the damage to your vehicle will be repaired.';
+  var LAW1='You have the right to choose the licensed repair shop where the damage to your motor vehicle will be repaired.';
   var LAW2='Your insurance company cannot require you to use a specific repair shop.';
   var t=window.NECtrack||function(){};
   var d={}, opener=null, panel, log, opts, live;
@@ -57,7 +57,7 @@
   /* ---- flow ---- */
   function start(){
     log.innerHTML='';d={};
-    say('Hi, this is New England Collision. First, is everyone okay? If anyone is hurt, please call 911.');
+    say('Hi, this is New England Collision\u2019s quick help. Tap an answer below, and a real person from our shop follows up. First, is everyone okay? If anyone is hurt, please call 911.');
     choices([{label:'Everyone is okay',cls:'btn-call',go:help},{label:'Someone is hurt',go:hurt}]);
   }
   function hurt(){
@@ -76,7 +76,7 @@
       say('That can feel stressful, and you do not have to sort it out alone. Every situation is different, so call us and we will help you sort it out.');
       say('<span class="law">'+LAW1+'</span>');
     }else if(k==='claim'){
-      say('We are a repair shop, so we cannot give legal advice. For legal questions, please ask your attorney. We can help with the repair side of things. Call us and we will help you sort it out.');
+      say('We are a repair shop, so we cannot give legal advice. For legal questions, please ask your attorney. We can help with the repair side of things. We accept Letters of Protection from attorneys. Call us and we will help you sort it out.');
       say('<span class="law">'+LAW2+'</span>');
     }else{
       say('You can send photos of the damage from your phone through CarWise, and our shop looks them over. First, a few quick details so we know who you are.');
@@ -86,7 +86,7 @@
     choices([{label:'Yes, please follow up',cls:'btn-call',go:details},{label:'Call '+PHONE_TXT,href:PHONE}]);
   }
   function details(){
-    say('<span class="privacy">We use your details only to contact you about your repair. We don\u2019t sell or share them. <span class="conf">[CONFIRM wording]</span></span>');
+    say('<span class="privacy">This page doesn\u2019t save what you type. It reaches our shop only when you press send in your own messages app. We use it only to help with your repair, and we never sell it.</span>');
     ask('What is your name?',[{k:'name',label:'Your name',ac:'name'}],function(){
       ask('Thanks, '+esc(d.name)+'. What is the best phone number to reach you?',[{k:'phone',label:'Phone number',type:'tel',ac:'tel',im:'tel'}],function(){
         ask('What are you driving?',[{k:'year',label:'Year',im:'numeric',ph:'2019'},{k:'make',label:'Make',ph:'Honda'},{k:'model',label:'Model',ph:'CR-V'}],function(){
@@ -103,17 +103,15 @@
   function handoff(){
     var b=body();
     say('Thank you, '+esc(d.name)+'. Here is what you told us:<br><br>'+esc(b));
-    say('To send it, tap <b>Message Us</b> and press send in your messages app. A real person at our shop follows up with you. Nothing is saved on this website.');
-    say('You can also send photos of the damage on CarWise, or call us any time we are open, Mon to Fri, 8:00 AM to 4:30 PM.');
+    say('To reach us now, tap Call. A real person at our shop answers during business hours.');
+    say('You can also send photos of the damage on CarWise. We are open Mon to Fri, 8:00 AM to 4:30 PM.');
     clear();
     var list=[
-      {label:'Message Us',href:SMS+'?&body='+encodeURIComponent(b),cls:'btn-call',on:function(){t('chat_lead_sms',{path:d.path});}},
-      {label:'Send photos on CarWise',href:CARWISE,ext:true},
-      {label:'Call '+PHONE_TXT,href:PHONE},
-      {label:'Email instead',href:'mailto:'+EMAIL+'?subject='+encodeURIComponent('Repair help: '+d.name)+'&body='+encodeURIComponent(b),on:function(){t('chat_lead_email',{path:d.path});}}
+      {label:'Call '+PHONE_TXT,href:PHONE,cls:'btn-call'},
+      {label:'Send photos on CarWise',href:CARWISE,ext:true}
     ];
+    if(SMS_ON) list.push({label:'Message Us',href:SMS+'?&body='+encodeURIComponent(b),on:function(){t('chat_lead_sms',{path:d.path});}});
     choices(list);
-    opts.appendChild(el('p',{'class':'privacy'},'Email goes to '+EMAIL+' <span class="conf">[CONFIRM: which NEC inbox]</span>'));
     var again=el('button',{type:'button','class':'btn btn-ghost'},'Start over');again.addEventListener('click',start);opts.appendChild(again);
   }
   /* ---- panel ---- */

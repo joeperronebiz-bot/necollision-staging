@@ -1,5 +1,5 @@
 /* NEC conversion tracker. OFF by default. No cookies, no storage, no network calls until a provider is wired in.
-   Events: call_tap, carwise_click, chat_open, chat_path, chat_lead_sms, chat_lead_email, directions_tap, facebook_click, reviews_click
+   Events: call_tap, carwise_click, chat_open, chat_path, chat_lead_sms (only if texting is turned on), directions_tap, facebook_click, reviews_click
    Debug: add ?track=debug to any URL to log every event to the browser console.
    To turn on at launch: set ENABLED = true and fill in send() for ONE provider (see LAUNCH.md). */
 (function(){

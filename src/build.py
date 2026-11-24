@@ -11,7 +11,7 @@ MAPS = 'https://www.google.com/maps/search/?api=1&query=New+England+Collision+46
 REVIEW = 'https://g.page/r/CdqqLEWWuIMlEAE/review'
 GREVIEWS = 'https://www.google.com/maps/search/New+England+Collision+465+Derby+Ave+West+Haven+CT?hl=en'
 FB = 'https://www.facebook.com/newenglandcollision'
-LAW1 = 'You have the right to choose the licensed repair shop where the damage to your vehicle will be repaired.'
+LAW1 = 'You have the right to choose the licensed repair shop where the damage to your motor vehicle will be repaired.'
 LAW2 = 'Your insurance company cannot require you to use a specific repair shop.'
 CSS = open(os.path.join(ROOT, 'site.css')).read()
 E = html.escape
@@ -109,7 +109,7 @@ def FOOTER(base):
 <div><p class="label">New England Collision</p>
 <p>465 Derby Ave<br>West Haven, CT 06516<br><a href="{TEL}" data-where="footer">{TELTXT}</a></p>
 <p>Family owned. 30 years, same location.<br>Se habla español.</p></div>
-<div><p class="label">Hours</p><p>Mon to Fri<br>8:00 AM to 4:30 PM</p>
+<div><p class="label">Hours</p><p>Mon to Fri<br>8:00 AM to 4:30 PM</p><p>Thanksgiving week: closed Thursday, Nov 26. Friday, Nov 27, closed for walk-ins, and we're answering the phone.</p>
 <p class="label">Pages</p><ul class="flinks">{''.join(f'<li><a href="{base}{p}">{n}</a></li>' for n,p in PAGES_NAV + SERVICE_LINKS)}</ul></div>
 <div><p class="label">Find us</p><p><a href="{MAPS}" target="_blank" rel="noopener" data-where="footer">Directions</a><br>
 <a href="{FB}" target="_blank" rel="noopener" data-where="footer">Facebook</a> {C('CONFIRM page URL')}<br>
@@ -122,12 +122,12 @@ def reviews_strip():
     def card(r):
         return f'''<article class="rv"><div class="meta"><span class="stars" aria-label="5 out of 5 stars">★★★★★</span> 5.0 · GOOGLE</div>
 <blockquote>{E(r["text"])}</blockquote>
-<div><div class="who">{E(r["name"])}</div><div class="meta">{E(r["when"])}</div></div>
-<a href="{GREVIEWS}" target="_blank" rel="noopener" data-where="reviews">See it on Google</a></article>'''
+<div class="who">{E(r["name"])}</div>
+<a href="{GREVIEWS}" target="_blank" rel="noopener" data-where="reviews">See our reviews on Google</a></article>'''
     ph = f'''<article class="rv ph"><div class="meta">FACEBOOK</div>
 <p>Facebook recommendations go here. {C('CONFIRM: add real Facebook recommendations, copied word for word. They need a login to read, so none are shown yet.')}</p>
 <a href="{FB}" target="_blank" rel="noopener" data-where="reviews">Visit us on Facebook</a></article>'''
-    cards = ''.join(card(r) for r in revs) + ph
+    cards = ''.join(card(r) for r in revs)  # Facebook card hidden until real recommendations are copied (Mirror fix 10)
     return f'''<div class="rv-view" tabindex="0" aria-label="Customer reviews, scrolling. Hover, tap or focus to pause.">
 <div class="rv-track"><div style="display:flex;gap:16px">{cards}</div><div style="display:flex;gap:16px" aria-hidden="true">{cards.replace('<a ', '<a tabindex="-1" ')}</div></div></div>'''
 
@@ -164,18 +164,16 @@ def home():
 <h2 id="how-h">Three simple steps</h2>
 <ol class="steps">
 <li><h3>Call or send photos</h3><p>Call {TELTXT}, or send photos of the damage from your phone. You can also stop by 465 Derby Ave.</p></li>
-<li><h3>We help with insurance and a rental</h3><p>Insurance claim assistance, and rental car delivery and pickup (some exceptions apply). {C('from old site, CONFIRM still offered')}</p></li>
+<li><h3>We work with your insurance</h3><p>All insurance companies are welcome, and insurance inspections happen right inside our shop.</p></li>
 <li><h3>Drive home fixed</h3><p>We repair your car here in our West Haven shop, and you pick it up when it's ready.</p></li>
 </ol>
 <div class="ctas"><a class="btn btn-call" href="{TEL}" data-where="steps">{ICON_PHONE}Call {TELTXT}</a></div>
 </div></section>
 
-<section class="alt"><div class="wrap grid2">
-<div class="photo"><img src="assets/img/front-office-720.webp" srcset="assets/img/front-office-400.webp 400w, assets/img/front-office-720.webp 720w" sizes="(min-width:820px) 520px, 100vw" width="720" height="720" loading="lazy" decoding="async" alt="Two members of the New England Collision office team on the phones at their desks"></div>
-<div><p class="label">Real people, real shop</p>
+<section class="alt"><div class="wrap">
+<div class="prose"><p class="label">Real people, real shop</p>
 <h2>When you call, you talk to our front office.</h2>
 <p>Our office is right inside the shop at 465 Derby Ave. Family owned. 30 years, same location.</p>
-<p class="cap">Photo: our front office, from our own website. {C('CONFIRM: staff okay to show this photo')}</p>
 <a class="btn btn-call" href="{TEL}" data-where="office">{ICON_PHONE}Call {TELTXT}</a></div>
 </div></section>
 
@@ -195,22 +193,15 @@ def home():
 <section id="fix" aria-labelledby="fix-h"><div class="wrap">
 <p class="label">What we fix</p>
 <h2 id="fix-h">Collision repair, start to finish</h2>
-<p>These are the services listed on our old website. {C('from old site, CONFIRM still offered')}</p>
+<p>These are services listed on our old website. {C('from old site, CONFIRM still offered')}</p>
 <div class="cards">
 <div class="card"><h3>Collision and auto body repair</h3><p>Dents, crushed panels and bumpers after a crash, big or small.</p><a class="more" href="services/collision-repair/">Collision repair</a></div>
 <div class="card"><h3>Paint and computerized color matching</h3><p>Paint work that matches the rest of your car.</p><a class="more" href="services/paint-color-matching/">Paint and color matching</a></div>
 <div class="card"><h3>Frame straightening</h3><p>Getting the structure of the car back where it belongs.</p><a class="more" href="services/frame-straightening/">Frame straightening</a></div>
-<div class="card"><h3>Insurance claim assistance</h3><p>Help with your insurance claim.</p><a class="more" href="services/insurance-claim-help/">Insurance claim help</a></div>
-<div class="card"><h3>Rental car delivery and pickup</h3><p>Some exceptions apply.</p><a class="more" href="services/towing-rental-help/">Towing and rental help</a></div>
-<div class="card"><h3>Need a tow?</h3><p>We don't tow, but we know trusted local tow companies and can call them for you.</p><a class="more" href="services/towing-rental-help/">Towing and rental help</a></div>
+<div class="card"><h3>Insurance questions</h3><p>All insurance companies welcome, and inspections happen inside our shop.</p><a class="more" href="services/insurance-claim-help/">Insurance and your right to choose</a></div>
+<div class="card"><h3>Need a tow?</h3><p>We don't tow, but we know trusted local tow companies and can call them for you.</p><a class="more" href="services/towing-help/">Towing help</a></div>
 </div>
-<div class="thumbs">
-<img src="assets/img/paint-booth-400.webp" width="400" height="400" loading="lazy" decoding="async" alt="A painter spraying a car part in the paint booth at New England Collision">
-<img src="assets/img/structure-repair-400.webp" width="400" height="400" loading="lazy" decoding="async" alt="A technician working under a car in the New England Collision shop">
-<img src="assets/img/panel-prep-400.webp" width="400" height="400" loading="lazy" decoding="async" alt="A technician preparing a van door for paint in the shop">
-</div>
-<p class="cap">Photos: inside our West Haven shop, from our own website. {C('CONFIRM: staff okay to show these photos')}</p>
-<div class="card" style="margin-top:18px"><h3>Veterans and active military</h3><p>10% off labor. Please bring your military ID. Labor only.</p></div>
+<div class="card" style="margin-top:18px"><h3>Veterans</h3><p>10% off labor, all year. Just let us know you served when you call or stop by.</p></div>
 </div></section>
 
 <section class="alt visit" id="visit" aria-labelledby="visit-h"><div class="wrap grid2">
@@ -218,12 +209,12 @@ def home():
 <h2 id="visit-h">465 Derby Ave, West Haven</h2>
 <dl><dt>Address</dt><dd>465 Derby Ave, West Haven, CT 06516</dd>
 <dt>Phone</dt><dd><a href="{TEL}" data-where="visit">{TELTXT}</a></dd>
-<dt>Hours</dt><dd>Mon to Fri, 8:00 AM to 4:30 PM</dd>
+<dt>Hours</dt><dd>Mon to Fri, 8:00 AM to 4:30 PM<br>Thanksgiving week: closed Thursday, Nov 26. Friday, Nov 27, closed for walk-ins, and we're answering the phone.</dd>
 <dt>Language</dt><dd>Se habla español</dd></dl>
 <div class="ctas"><a class="btn btn-call" href="{TEL}" data-where="visit">{ICON_PHONE}Call {TELTXT}</a><a class="btn btn-soft" href="{MAPS}" target="_blank" rel="noopener" data-where="visit">Get directions</a></div>
 <p>Say hello on <a href="{FB}" target="_blank" rel="noopener" data-where="visit">Facebook</a> {C('CONFIRM page URL')}, or <a href="{REVIEW}" target="_blank" rel="noopener" data-where="visit">leave us a Google review</a>.</p>
 </div>
-<div><p class="motto serif" style="font-size:30px;line-height:1.3;color:var(--ink)"><i>Nobody plans an accident. We'll take it from here.</i></p>
+<div><p class="motto serif" style="font-size:30px;line-height:1.3;color:var(--ink)"><i>Nobody plans an accident. We'll help from here.</i></p>
 <p>Family owned on Derby Ave since 1996. Call, send photos, or tap Message Us, and a real person from our shop gets back to you.</p></div>
 </div></section>
 '''
