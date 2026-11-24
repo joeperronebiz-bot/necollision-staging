@@ -1,0 +1,549 @@
+{
+ "West Haven": {
+  "origin": "West Haven City Hall",
+  "osm": "way/932576416",
+  "lat": 41.272618,
+  "lon": -72.9505755,
+  "v_mi": 2.9,
+  "v_min": 8,
+  "o_mi": 2.9,
+  "o_min": 6,
+  "maneuvers": [
+   {
+    "i": "Drive southeast.",
+    "len": 0.04
+   },
+   {
+    "i": "Turn left onto Main Street.",
+    "len": 0.03
+   },
+   {
+    "i": "Turn left onto Campbell Avenue.",
+    "len": 2.72
+   },
+   {
+    "i": "Turn left onto CT 34/Derby Avenue.",
+    "len": 0.12
+   },
+   {
+    "i": "You have arrived at your destination.",
+    "len": 0.0
+   }
+  ]
+ },
+ "New Haven": {
+  "origin": "New Haven City Hall",
+  "osm": "way/39267857",
+  "lat": 41.307378,
+  "lon": -72.9243304,
+  "v_mi": 3.3,
+  "v_min": 9,
+  "o_mi": 2.9,
+  "o_min": 6,
+  "maneuvers": [
+   {
+    "i": "Drive northeast on Church Street.",
+    "len": 0.06
+   },
+   {
+    "i": "Turn right onto Elm Street.",
+    "len": 0.09
+   },
+   {
+    "i": "Turn right onto Orange Street.",
+    "len": 0.28
+   },
+   {
+    "i": "Turn left onto Crown Street.",
+    "len": 0.01
+   },
+   {
+    "i": "Turn right onto Orange Street.",
+    "len": 0.19
+   },
+   {
+    "i": "Turn right onto Martin Luther King Jr. Boulevard.",
+    "len": 1.46
+   },
+   {
+    "i": "Turn right onto CT 10/Ella T. Grasso Boulevard.",
+    "len": 0.25
+   },
+   {
+    "i": "Turn left onto CT 34/Derby Avenue.",
+    "len": 0.99
+   },
+   {
+    "i": "You have arrived at your destination.",
+    "len": 0.0
+   }
+  ]
+ },
+ "Orange": {
+  "origin": "Orange Town Hall",
+  "osm": "way/932673000",
+  "lat": 41.2791668,
+  "lon": -73.025806,
+  "v_mi": 5.1,
+  "v_min": 8,
+  "o_mi": 4.7,
+  "o_min": 9,
+  "maneuvers": [
+   {
+    "i": "Drive south.",
+    "len": 0.02
+   },
+   {
+    "i": "Turn right onto Tyler City Road.",
+    "len": 0.03
+   },
+   {
+    "i": "Turn right onto Orange Center Road/CT 152.",
+    "len": 1.74
+   },
+   {
+    "i": "Turn right onto CT 34/Derby Turnpike. Continue on CT 34.",
+    "len": 3.16
+   },
+   {
+    "i": "Make a left U-turn at Forest Road/CT 122 onto CT 34/Derby Avenue.",
+    "len": 0.13
+   },
+   {
+    "i": "You have arrived at your destination.",
+    "len": 0.0
+   }
+  ]
+ },
+ "Milford": {
+  "origin": "Milford City Hall",
+  "osm": "way/310895701",
+  "lat": 41.2252871,
+  "lon": -73.0577119,
+  "v_mi": 11.1,
+  "v_min": 14,
+  "o_mi": 8.6,
+  "o_min": 15,
+  "maneuvers": [
+   {
+    "i": "Drive east.",
+    "len": 0.01
+   },
+   {
+    "i": "Turn left onto River Street.",
+    "len": 0.08
+   },
+   {
+    "i": "Turn left onto West Main Street.",
+    "len": 0.01
+   },
+   {
+    "i": "Bear right onto Plymouth Place.",
+    "len": 0.36
+   },
+   {
+    "i": "Keep left to take North Street.",
+    "len": 0.07
+   },
+   {
+    "i": "Turn left onto Boston Post Road/US 1.",
+    "len": 0.26
+   },
+   {
+    "i": "Take the ramp toward CT 15/New York City/Hartford.",
+    "len": 1.51
+   },
+   {
+    "i": "Keep right to take exit 3A onto CT 15 North toward Hartford.",
+    "len": 4.93
+   },
+   {
+    "i": "Take exit 42A onto CT 34 East toward New Haven.",
+    "len": 3.69
+   },
+   {
+    "i": "Make a left U-turn at Forest Road/CT 122 onto CT 34/Derby Avenue.",
+    "len": 0.13
+   },
+   {
+    "i": "You have arrived at your destination.",
+    "len": 0.0
+   }
+  ]
+ },
+ "Hamden": {
+  "origin": "Hamden Government Center",
+  "osm": "node/6797451801",
+  "lat": 41.3832771,
+  "lon": -72.9084001,
+  "v_mi": 8.5,
+  "v_min": 15,
+  "o_mi": 8.5,
+  "o_min": 14,
+  "maneuvers": [
+   {
+    "i": "Drive northeast.",
+    "len": 0.08
+   },
+   {
+    "i": "Turn right onto Evergreen Avenue.",
+    "len": 0.07
+   },
+   {
+    "i": "Turn left onto Dixwell Avenue/CT 10.",
+    "len": 0.32
+   },
+   {
+    "i": "Turn right onto Whitney Avenue.",
+    "len": 0.27
+   },
+   {
+    "i": "Turn right to take the CT 15 ramp.",
+    "len": 4.96
+   },
+   {
+    "i": "Take exit 46 onto CT 69 toward New Haven/Woodbridge.",
+    "len": 0.2
+   },
+   {
+    "i": "Turn right onto Whalley Avenue/CT 69.",
+    "len": 0.35
+   },
+   {
+    "i": "Turn left onto Whalley Avenue/CT 63.",
+    "len": 0.59
+   },
+   {
+    "i": "Turn right onto Dayton Street/CT 122.",
+    "len": 0.13
+   },
+   {
+    "i": "Turn left onto Fountain Street/CT 122/CT 243.",
+    "len": 0.02
+   },
+   {
+    "i": "Turn right onto Forest Road/CT 122.",
+    "len": 1.39
+   },
+   {
+    "i": "Turn right onto CT 34/Derby Avenue.",
+    "len": 0.12
+   },
+   {
+    "i": "You have arrived at your destination.",
+    "len": 0.0
+   }
+  ]
+ },
+ "East Haven": {
+  "origin": "East Haven Town Hall",
+  "osm": "way/700611712",
+  "lat": 41.2775532,
+  "lon": -72.8716918,
+  "v_mi": 6.7,
+  "v_min": 13,
+  "o_mi": 6.8,
+  "o_min": 12,
+  "maneuvers": [
+   {
+    "i": "Drive southwest.",
+    "len": 0.01
+   },
+   {
+    "i": "Turn right.",
+    "len": 0.04
+   },
+   {
+    "i": "Turn right onto Thompson Avenue.",
+    "len": 0.04
+   },
+   {
+    "i": "Turn left onto Main Street.",
+    "len": 0.22
+   },
+   {
+    "i": "Turn right onto Forbes Place.",
+    "len": 0.3
+   },
+   {
+    "i": "Turn left onto Frontage Road/US 1.",
+    "len": 0.6
+   },
+   {
+    "i": "Take the I 95 South ramp on the left.",
+    "len": 1.51
+   },
+   {
+    "i": "Keep right to take exit 47/48 onto MLK Boulevard toward Downtown New Haven.",
+    "len": 0.09
+   },
+   {
+    "i": "Keep left to take exit 47 onto MLK Boulevard toward Downtown New Haven.",
+    "len": 2.6
+   },
+   {
+    "i": "Turn right onto CT 10/Ella T. Grasso Boulevard.",
+    "len": 0.25
+   },
+   {
+    "i": "Turn left onto CT 34/Derby Avenue.",
+    "len": 0.99
+   },
+   {
+    "i": "You have arrived at your destination.",
+    "len": 0.0
+   }
+  ]
+ },
+ "Branford": {
+  "origin": "Branford Town Hall",
+  "osm": "way/543955437",
+  "lat": 41.2813764,
+  "lon": -72.8101934,
+  "v_mi": 10.2,
+  "v_min": 16,
+  "o_mi": 10.1,
+  "o_min": 18,
+  "maneuvers": [
+   {
+    "i": "Drive north on Town Hall Drive.",
+    "len": 0.06
+   },
+   {
+    "i": "Turn right onto Montowese Street.",
+    "len": 0.1
+   },
+   {
+    "i": "Turn right onto South Main Street/CT 146.",
+    "len": 0.35
+   },
+   {
+    "i": "Turn right onto Cedar Street.",
+    "len": 0.72
+   },
+   {
+    "i": "Turn left to take the I 95 South ramp.",
+    "len": 4.99
+   },
+   {
+    "i": "Keep right to take exit 47/48 onto MLK Boulevard toward Downtown New Haven.",
+    "len": 0.09
+   },
+   {
+    "i": "Keep left to take exit 47 onto MLK Boulevard toward Downtown New Haven.",
+    "len": 2.6
+   },
+   {
+    "i": "Turn right onto CT 10/Ella T. Grasso Boulevard.",
+    "len": 0.25
+   },
+   {
+    "i": "Turn left onto CT 34/Derby Avenue.",
+    "len": 0.99
+   },
+   {
+    "i": "You have arrived at your destination.",
+    "len": 0.0
+   }
+  ]
+ },
+ "Guilford": {
+  "origin": "Guilford Town Hall",
+  "osm": "way/724196133",
+  "lat": 41.2829672,
+  "lon": -72.6806583,
+  "v_mi": 16.9,
+  "v_min": 22,
+  "o_mi": 17.1,
+  "o_min": 26,
+  "maneuvers": [
+   {
+    "i": "Drive west.",
+    "len": 0.02
+   },
+   {
+    "i": "Turn right onto Park Street.",
+    "len": 0.12
+   },
+   {
+    "i": "Turn left onto Broad Street.",
+    "len": 0.04
+   },
+   {
+    "i": "Turn right onto Church Street/CT 77.",
+    "len": 0.86
+   },
+   {
+    "i": "Turn left to take the I 95 South ramp.",
+    "len": 11.95
+   },
+   {
+    "i": "Keep right to take exit 47/48 onto MLK Boulevard toward Downtown New Haven.",
+    "len": 0.09
+   },
+   {
+    "i": "Keep left to take exit 47 onto MLK Boulevard toward Downtown New Haven.",
+    "len": 2.6
+   },
+   {
+    "i": "Turn right onto CT 10/Ella T. Grasso Boulevard.",
+    "len": 0.25
+   },
+   {
+    "i": "Turn left onto CT 34/Derby Avenue.",
+    "len": 0.99
+   },
+   {
+    "i": "You have arrived at your destination.",
+    "len": 0.0
+   }
+  ]
+ },
+ "Madison": {
+  "origin": "Madison Town Offices",
+  "osm": "way/355324327",
+  "lat": 41.2966029,
+  "lon": -72.5746212,
+  "v_mi": 22.9,
+  "v_min": 27,
+  "o_mi": 23.1,
+  "o_min": 33,
+  "maneuvers": [
+   {
+    "i": "Drive west.",
+    "len": 0.03
+   },
+   {
+    "i": "Turn left onto Campus Drive.",
+    "len": 0.08
+   },
+   {
+    "i": "Turn left onto Duck Hole Road.",
+    "len": 0.42
+   },
+   {
+    "i": "Turn left to take the I 95 South ramp.",
+    "len": 18.49
+   },
+   {
+    "i": "Keep right to take exit 47/48 onto MLK Boulevard toward Downtown New Haven.",
+    "len": 0.09
+   },
+   {
+    "i": "Keep left to take exit 47 onto MLK Boulevard toward Downtown New Haven.",
+    "len": 2.6
+   },
+   {
+    "i": "Turn right onto CT 10/Ella T. Grasso Boulevard.",
+    "len": 0.25
+   },
+   {
+    "i": "Turn left onto CT 34/Derby Avenue.",
+    "len": 0.99
+   },
+   {
+    "i": "You have arrived at your destination.",
+    "len": 0.0
+   }
+  ]
+ },
+ "Seymour": {
+  "origin": "Seymour Town Hall",
+  "osm": "way/541800097",
+  "lat": 41.3944044,
+  "lon": -73.0743368,
+  "v_mi": 10.9,
+  "v_min": 19,
+  "o_mi": 9.6,
+  "o_min": 18,
+  "maneuvers": [
+   {
+    "i": "Drive north on First Street.",
+    "len": 0.09
+   },
+   {
+    "i": "Turn right onto Bank Street.",
+    "len": 0.05
+   },
+   {
+    "i": "Turn right onto Main Street/CT 115.",
+    "len": 0.27
+   },
+   {
+    "i": "Bear left onto Maple Street/CT 313. Continue on CT 313.",
+    "len": 4.17
+   },
+   {
+    "i": "Turn right onto Racebrook Road/CT 114.",
+    "len": 3.5
+   },
+   {
+    "i": "Turn left onto CT 34/Derby Turnpike. Continue on CT 34.",
+    "len": 2.64
+   },
+   {
+    "i": "Make a left U-turn at Forest Road/CT 122 onto CT 34/Derby Avenue.",
+    "len": 0.13
+   },
+   {
+    "i": "You have arrived at your destination.",
+    "len": 0.0
+   }
+  ]
+ },
+ "Shelton": {
+  "origin": "Shelton City Hall",
+  "osm": "way/403537948",
+  "lat": 41.3136415,
+  "lon": -73.0921294,
+  "v_mi": 8.0,
+  "v_min": 12,
+  "o_mi": 8.0,
+  "o_min": 13,
+  "maneuvers": [
+   {
+    "i": "Drive northeast on Hill Street.",
+    "len": 0.03
+   },
+   {
+    "i": "Turn right onto Coram Avenue.",
+    "len": 0.25
+   },
+   {
+    "i": "Turn left onto Kneen Street.",
+    "len": 0.03
+   },
+   {
+    "i": "Turn left to take the CT 8 North ramp toward Waterbury.",
+    "len": 0.37
+   },
+   {
+    "i": "Take exit 12B onto CT 34 toward Derby/New Haven.",
+    "len": 0.25
+   },
+   {
+    "i": "Turn right onto CT 34/Main Street.",
+    "len": 0.13
+   },
+   {
+    "i": "Turn right onto Derby Avenue.",
+    "len": 6.78
+   },
+   {
+    "i": "Make a left U-turn at Forest Road/CT 122 onto CT 34/Derby Avenue.",
+    "len": 0.13
+   },
+   {
+    "i": "You have arrived at your destination.",
+    "len": 0.0
+   }
+  ]
+ },
+ "_meta": {
+  "router": "Valhalla (valhalla1.openstreetmap.de, FOSSGIS), costing auto; cross-check OSRM demo server (router.project-osrm.org). Both use OpenStreetMap data.",
+  "origins": "Town or city hall as mapped in OpenStreetMap (Nominatim)",
+  "dest": "465 Derby Ave, West Haven, 41.30659,-72.97122",
+  "fetched": "2026-11-24 08:38 EST",
+  "note": "times are without traffic"
+ }
+}

@@ -1,5 +1,5 @@
 # Phase 2 pages. Executed by build.py (shares its globals).
-TOWNS_ON = False  # Phase 3 town pages
+TOWNS_ON = True  # Phase 3 town pages
 DENT_ON = False  # Mirror correction Nov 24: dent page off for launch, held under A/D line A
 SERVICE_LINKS = [('Collision repair','services/collision-repair/'),('Paint and color matching','services/paint-color-matching/'),('Frame straightening','services/frame-straightening/'),('Insurance questions','services/insurance-claim-help/'),('Towing help','services/towing-help/')]
 REVS = {r['name']: r for r in json.load(open(os.path.join(ROOT, '..', 'data', 'reviews-used.json')))}
@@ -250,8 +250,7 @@ def contact_page():
 {pending('Storefront photo: from NEC\u2019s business listing photos (Loc8), date unknown. Cropped to leave out cars, plates, a billboard and an older wall sign. Confirm the storefront still looks like this and Joe is okay using it.')}
 <h2>Finding us</h2>
 <p>We're at 465 Derby Ave in West Haven.</p>
-<p>Driving directions from nearby towns are coming to this site soon. For now, tap Get directions and your map app will take you right to our door.</p>
-{pending('Town-by-town directions arrive in Phase 3 (Wednesday).')}
+<p>Tap Get directions and your map app will take you right to our door. Coming from a nearby town? See <a href="{base}towns/">towns we serve</a> for the drive from each one.</p>
 </div></div></section>'''
     return 'contact/', page('contact/', 'Contact and Directions | New England Collision, 465 Derby Ave, West Haven CT',
       'New England Collision, 465 Derby Ave, West Haven, CT 06516. Mon to Fri 8:00 AM to 4:30 PM. Call (203) 389-6400.', body, base, crumbs=crumbs)
@@ -260,7 +259,9 @@ def main():
     os.makedirs(os.path.join(OUT, 'assets', 'js'), exist_ok=True)
     for f in ('tracker.js', 'chat.js'):
         shutil.copy(os.path.join(ROOT, f), os.path.join(OUT, 'assets', 'js', f))
+    exec(open(os.path.join(ROOT,'towns.py')).read(), globals())
     pages = [('', home())] + services_pages() + [services_hub(), faq_page(), about_page(), rights_page(), contact_page()]
+    if TOWNS_ON: pages += towns_pages()
     for path, htmltxt in pages:
         d = os.path.join(OUT, path); os.makedirs(d, exist_ok=True)
         open(os.path.join(d, 'index.html'), 'w').write(htmltxt)
