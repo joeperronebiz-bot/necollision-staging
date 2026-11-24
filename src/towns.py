@@ -1,66 +1,54 @@
 # Phase 3: town pages. Executed by pages.py main() (shares build.py globals).
 # Drive data: data/routes/townhall-routes-2026-11-24.json (Valhalla + OSRM, OpenStreetMap data, fetched Nov 24, 2026).
-# Town facts: Wikipedia infoboxes (2020 U.S. Census population), data/routes/wikipedia-infobox-2026-11-24.json.
 ROUTES = json.load(open(os.path.join(ROOT, '..', 'data', 'routes', 'townhall-routes-2026-11-24.json')))
 DEST_Q = 'New+England+Collision,+465+Derby+Ave,+West+Haven,+CT+06516'
 TOWNS = [
- # slug, name, origin label, steps, county, region, pop, est label, est year, official site, wiki, review
+ # slug, name, origin label, steps
  ('west-haven','West Haven','West Haven City Hall',
   ['From City Hall on Main Street, head to Campbell Avenue and take it north for about 2.7 miles.',
-   'Turn left onto Derby Avenue (Route 34). We\u2019re at 465.'],
-  'New Haven','South Central Connecticut','55,584','was incorporated as a town','1921','https://www.cityofwesthaven.com/','West_Haven,_Connecticut','John Poulsen'),
+   'Turn left onto Derby Avenue (Route 34). We\u2019re at 465.']),
  ('new-haven','New Haven','New Haven City Hall',
   ['From City Hall on Church Street, follow Orange Street to Martin Luther King Jr. Boulevard and take it west for about 1.5 miles.',
    'Turn right onto Ella T. Grasso Boulevard (Route 10).',
-   'Turn left onto Derby Avenue (Route 34) and drive about a mile to 465.'],
-  'New Haven','South Central Connecticut','134,023','was settled','1638','https://www.newhavenct.gov/','New_Haven,_Connecticut','Yajayra Torres'),
+   'Turn left onto Derby Avenue (Route 34) and drive about a mile to 465.']),
  ('orange','Orange','Orange Town Hall',
   ['From Town Hall, take Orange Center Road (Route 152) for about 1.7 miles.',
    'Turn right onto the Derby Turnpike (Route 34) and stay on Route 34 east for about 3 miles into West Haven.',
-   'We\u2019re at 465 Derby Avenue, near Forest Road (Route 122).'],
-  'New Haven','South Central Connecticut','14,280','was incorporated','1822','https://www.orange-ct.gov/','Orange,_Connecticut','Frank Miele'),
+   'We\u2019re at 465 Derby Avenue, near Forest Road (Route 122).']),
  ('milford','Milford','Milford City Hall',
   ['From City Hall, head to the Boston Post Road (US 1) and follow the ramp toward Route 15.',
    'Take the Wilbur Cross Parkway (Route 15) north toward Hartford for about 5 miles.',
-   'Take the Route 34 East exit toward New Haven and stay on Route 34 for about 3.7 miles to 465 Derby Avenue.'],
-  'New Haven','South Central Connecticut','50,558','was settled','1639','https://www.milfordct.us/','Milford,_Connecticut','Ryan D.'),
+   'Take the Route 34 East exit toward New Haven and stay on Route 34 for about 3.7 miles to 465 Derby Avenue.']),
  ('hamden','Hamden','the Hamden Government Center',
   ['From the Government Center on Dixwell Avenue, take Whitney Avenue to the Wilbur Cross Parkway (Route 15) and follow it about 5 miles.',
    'Take the exit for Route 69 toward New Haven and Woodbridge onto Whalley Avenue.',
    'Turn left to stay on Whalley Avenue (Route 63), then turn right onto Dayton Street and left onto Fountain Street.',
    'Turn right onto Forest Road (Route 122) and follow it about 1.4 miles.',
-   'Turn right onto Derby Avenue (Route 34). We\u2019re at 465.'],
-  'New Haven','South Central Connecticut','61,169','was incorporated','1786','https://www.hamden.com/','Hamden,_Connecticut','Alissa Stover'),
+   'Turn right onto Derby Avenue (Route 34). We\u2019re at 465.']),
  ('east-haven','East Haven','East Haven Town Hall',
   ['From Town Hall on Main Street, head to US 1 and take I-95 South.',
    'Keep left for exit 47 toward Downtown New Haven, onto the connector to Martin Luther King Jr. Boulevard.',
-   'Turn right onto Ella T. Grasso Boulevard (Route 10), then left onto Derby Avenue (Route 34) for about a mile to 465.'],
-  'New Haven','South Central Connecticut','27,923','was incorporated','1785','https://www.easthaven-ct.gov/','East_Haven,_Connecticut','Erin Eberhardt'),
+   'Turn right onto Ella T. Grasso Boulevard (Route 10), then left onto Derby Avenue (Route 34) for about a mile to 465.']),
  ('branford','Branford','Branford Town Hall',
   ['From Town Hall on Main Street, take South Main Street (Route 146) and Cedar Street to I-95 South, about 5 miles on the highway.',
    'Keep left for exit 47 toward Downtown New Haven, onto the connector to Martin Luther King Jr. Boulevard.',
-   'Turn right onto Ella T. Grasso Boulevard (Route 10), then left onto Derby Avenue (Route 34) for about a mile to 465.'],
-  'New Haven','South Central Connecticut','28,273','was settled','1644','https://www.branford-ct.gov/','Branford,_Connecticut','Lucas Cecchetto'),
+   'Turn right onto Ella T. Grasso Boulevard (Route 10), then left onto Derby Avenue (Route 34) for about a mile to 465.']),
  ('guilford','Guilford','Guilford Town Hall',
   ['From Town Hall on Park Street, take Church Street (Route 77) to I-95 South, about 12 miles on the highway.',
    'Keep left for exit 47 toward Downtown New Haven, onto the connector to Martin Luther King Jr. Boulevard.',
-   'Turn right onto Ella T. Grasso Boulevard (Route 10), then left onto Derby Avenue (Route 34) for about a mile to 465.'],
-  'New Haven','South Central Connecticut','22,073','was settled','1639','https://www.guilfordct.gov/','Guilford,_Connecticut','Emily Loquine'),
+   'Turn right onto Ella T. Grasso Boulevard (Route 10), then left onto Derby Avenue (Route 34) for about a mile to 465.']),
  ('madison','Madison','the Madison Town Offices on Campus Drive',
   ['From the Town Offices, take Campus Drive and Duck Hole Road to I-95 South, about 18.5 miles on the highway.',
    'Take exit 47 toward Downtown New Haven, onto the connector to Martin Luther King Jr. Boulevard.',
-   'Turn right onto Ella T. Grasso Boulevard (Route 10), then left onto Derby Avenue (Route 34) for about a mile to 465.'],
-  'New Haven','South Central Connecticut','17,691','was incorporated','1826','https://www.madisonct.org/','Madison,_Connecticut','Laura'),
+   'Turn right onto Ella T. Grasso Boulevard (Route 10), then left onto Derby Avenue (Route 34) for about a mile to 465.']),
  ('seymour','Seymour','Seymour Town Hall',
   ['From Town Hall on First Street, take Main Street (Route 115), then bear left onto Maple Street (Route 313) and stay on Route 313 for about 4 miles.',
    'Turn right onto Racebrook Road (Route 114) for about 3.5 miles.',
-   'Turn left onto the Derby Turnpike (Route 34) and stay on Route 34 east for about 2.6 miles to 465 Derby Avenue.'],
-  'New Haven','Naugatuck Valley','16,748','was incorporated','1850','https://www.seymourct.org/','Seymour,_Connecticut','loyd inabinet'),
+   'Turn left onto the Derby Turnpike (Route 34) and stay on Route 34 east for about 2.6 miles to 465 Derby Avenue.']),
  ('shelton','Shelton','Shelton City Hall',
   ['From City Hall on Hill Street, take Route 8 North for a short stretch to exit 12B, Route 34 toward Derby and New Haven.',
    'Follow Route 34 east through Derby, about 7 miles on Derby Avenue and the Derby Turnpike.',
-   'We\u2019re at 465 Derby Avenue in West Haven, near Forest Road (Route 122).'],
-  'Fairfield','Naugatuck Valley','40,869','was incorporated as a town','1789','https://www.cityofshelton.org/','Shelton,_Connecticut','John Poulsen'),
+   'We\u2019re at 465 Derby Avenue in West Haven, near Forest Road (Route 122).']),
 ]
 
 def drive(name):
@@ -85,7 +73,7 @@ def towns_hub():
     # Mirror P3 FIX 1: one hub, town sections with in-page anchors, no separate town pages.
     base = '../'; crumbs = [('Home',''),('Towns we serve','towns/')]
     rows = ''; secs = ''
-    for s,n,origin,steps,*_ in TOWNS:
+    for s,n,origin,steps in TOWNS:
         miles, mins = drive(n)
         rows += f'<tr><th scope="row"><a href="#{s}">{n}</a></th><td>{miles.replace("about ","")}</td><td>{mins.replace("about ","")}</td></tr>'
         li = ''.join(f'<li>{E(x)}</li>' for x in steps)
