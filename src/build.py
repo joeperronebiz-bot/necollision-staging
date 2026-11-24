@@ -76,7 +76,8 @@ def page(path, title, desc, body, base, ld=None, crumbs=None, og_type='website')
 <header class="top"><div class="wrap">
 <a class="brand" href="{base or './'}"><img src="{base}assets/img/nec-logo-160.webp" width="52" height="52" alt="New England Collision logo"><span><b>New England Collision</b><small>West Haven, CT</small></span></a>
 <nav class="nav" aria-label="Main">{NAV(base)}</nav>
-<a class="btn btn-call" href="{TEL}" data-where="header" aria-label="Call {TELTXT}">{ICON_PHONE}<span class="short">Call</span><span class="full">Call {TELTXT}</span></a>
+<div class="actions"><details class="menu"><summary>Menu</summary><nav class="menu-list" aria-label="Menu">{NAV(base, True)}</nav></details>
+<a class="btn btn-call" href="{TEL}" data-where="header" aria-label="Call {TELTXT}">{ICON_PHONE}<span class="short">Call</span><span class="full">Call {TELTXT}</span></a></div>
 </div></header>
 <main id="main">
 {body}
@@ -98,17 +99,18 @@ v.addEventListener('click',function(e){{if(!e.target.closest('a'))set(!v.classLi
 </html>
 '''
 
-def NAV(base):
-    # Phase 1: in-page anchors only (service, town and FAQ pages arrive in Phase 2 and 3)
-    h = base or './'
-    return ''.join(f'<a href="{h}#{a}">{n}</a>' for n,a in [('How it works','how'),('Reviews','reviews'),('Insurance','insurance'),('What we fix','fix'),('Visit','visit')])
+PAGES_NAV = [('Services','services/'),('Insurance help','services/insurance-claim-help/'),('Your right to choose','your-right-to-choose/'),('FAQ','faq/'),('About','about/'),('Contact','contact/')]
+def NAV(base, full=False):
+    items = ([('Home','')] if full else []) + PAGES_NAV
+    return ''.join(f'<a href="{base}{p}">{n}</a>' if p else f'<a href="{base or './'}">{n}</a>' for n,p in items)
 
 def FOOTER(base):
     return f'''<footer><div class="wrap fgrid">
 <div><p class="label">New England Collision</p>
 <p>465 Derby Ave<br>West Haven, CT 06516<br><a href="{TEL}" data-where="footer">{TELTXT}</a></p>
 <p>Family owned. 30 years, same location.<br>Se habla español.</p></div>
-<div><p class="label">Hours</p><p>Mon to Fri<br>8:00 AM to 4:30 PM</p></div>
+<div><p class="label">Hours</p><p>Mon to Fri<br>8:00 AM to 4:30 PM</p>
+<p class="label">Pages</p><ul class="flinks">{''.join(f'<li><a href="{base}{p}">{n}</a></li>' for n,p in PAGES_NAV + SERVICE_LINKS)}</ul></div>
 <div><p class="label">Find us</p><p><a href="{MAPS}" target="_blank" rel="noopener" data-where="footer">Directions</a><br>
 <a href="{FB}" target="_blank" rel="noopener" data-where="footer">Facebook</a> {C('CONFIRM page URL')}<br>
 <a href="{GREVIEWS}" target="_blank" rel="noopener" data-where="reviews">Google reviews</a><br>
@@ -182,7 +184,7 @@ def home():
 <h2 id="ins-h">In Connecticut, you choose the shop.</h2>
 <p class="quote-law">{LAW1}</p>
 <p class="quote-law">{LAW2}</p>
-<p class="src">Source: Connecticut General Statutes, Sec. 38a-354. <a href="https://www.cga.ct.gov/current/pub/chap_700.htm#sec_38a-354" target="_blank" rel="noopener">Read the law</a>.</p>
+<p class="src">Source: Connecticut General Statutes, Sec. 38a-354. <a href="https://www.cga.ct.gov/current/pub/chap_700.htm#sec_38a-354" target="_blank" rel="noopener">Read the law</a>. More on <a href="your-right-to-choose/">your right to choose</a>.</p>
 <div class="cards">
 <div class="card"><h3>All insurance companies welcome</h3><p>We're an independent shop. Whoever your insurer is, you can bring your car to us.</p></div>
 <div class="card"><h3>Inspections inside the shop</h3><p>Insurance inspections happen inside our shop, so you and the adjuster stay out of the snow.</p></div>
@@ -195,12 +197,12 @@ def home():
 <h2 id="fix-h">Collision repair, start to finish</h2>
 <p>These are the services listed on our old website. {C('from old site, CONFIRM still offered')}</p>
 <div class="cards">
-<div class="card"><h3>Collision and auto body repair</h3><p>Dents, crushed panels and bumpers after a crash, big or small.</p></div>
-<div class="card"><h3>Paint and computerized color matching</h3><p>Paint work that matches the rest of your car.</p></div>
-<div class="card"><h3>Frame straightening</h3><p>Getting the structure of the car back where it belongs.</p></div>
-<div class="card"><h3>Insurance claim assistance</h3><p>Help with your insurance claim.</p></div>
-<div class="card"><h3>Rental car delivery and pickup</h3><p>Some exceptions apply.</p></div>
-<div class="card"><h3>Need a tow?</h3><p>We don't tow, but we know trusted local tow companies and can call them for you.</p></div>
+<div class="card"><h3>Collision and auto body repair</h3><p>Dents, crushed panels and bumpers after a crash, big or small.</p><a class="more" href="services/collision-repair/">Collision repair</a></div>
+<div class="card"><h3>Paint and computerized color matching</h3><p>Paint work that matches the rest of your car.</p><a class="more" href="services/paint-color-matching/">Paint and color matching</a></div>
+<div class="card"><h3>Frame straightening</h3><p>Getting the structure of the car back where it belongs.</p><a class="more" href="services/frame-straightening/">Frame straightening</a></div>
+<div class="card"><h3>Insurance claim assistance</h3><p>Help with your insurance claim.</p><a class="more" href="services/insurance-claim-help/">Insurance claim help</a></div>
+<div class="card"><h3>Rental car delivery and pickup</h3><p>Some exceptions apply.</p><a class="more" href="services/towing-rental-help/">Towing and rental help</a></div>
+<div class="card"><h3>Need a tow?</h3><p>We don't tow, but we know trusted local tow companies and can call them for you.</p><a class="more" href="services/towing-rental-help/">Towing and rental help</a></div>
 </div>
 <div class="thumbs">
 <img src="assets/img/paint-booth-400.webp" width="400" height="400" loading="lazy" decoding="async" alt="A painter spraying a car part in the paint booth at New England Collision">
@@ -229,7 +231,7 @@ def home():
                 'Family-owned collision repair at 465 Derby Ave, West Haven, CT. 30 years, same location. Call (203) 389-6400 or send photos for an estimate.',
                 body, '')
 
-def main():
+def main_old():
     os.makedirs(os.path.join(OUT, 'assets', 'js'), exist_ok=True)
     for f in ('tracker.js', 'chat.js'):
         shutil.copy(os.path.join(ROOT, f), os.path.join(OUT, 'assets', 'js', f))
@@ -238,4 +240,6 @@ def main():
     open(os.path.join(OUT, 'robots.txt'), 'w').write('# STAGING: block all crawlers. At launch replace with the version in LAUNCH.md\nUser-agent: *\nDisallow: /\n' if STAGING else f'User-agent: *\nAllow: /\nSitemap: {CANON}/sitemap.xml\n')
     urls = ['']
     open(os.path.join(OUT, 'sitemap.xml'), 'w').write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + ''.join(f'<url><loc>{CANON}/{u}</loc><lastmod>2026-11-24</lastmod></url>\n' for u in urls) + '</urlset>\n')
+
+exec(open(os.path.join(ROOT,'pages.py')).read())
 main()

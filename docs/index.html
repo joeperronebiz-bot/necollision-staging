@@ -159,6 +159,43 @@ footer .label{color:#a39d93}
 .bone .label,.bone .src{color:#5E5850}
 .rv blockquote{font-size:19px}
 .rv{width:min(300px,78vw)}
+/* Phase 2 */
+.menu{position:relative}
+.menu summary{list-style:none;cursor:pointer;min-height:44px;display:inline-flex;align-items:center;padding:8px 14px;border:1px solid var(--hair);border-radius:999px;font-weight:600;font-size:16px;background:#fff}
+.menu summary::-webkit-details-marker{display:none}
+.menu[open] .menu-list{display:grid}
+.menu-list{display:none;position:absolute;right:0;top:52px;z-index:50;background:#fff;border:1px solid var(--hair);border-radius:16px;padding:8px;min-width:230px;box-shadow:0 10px 30px rgba(17,16,15,.12)}
+.menu-list a{display:block;padding:12px 14px;border-radius:10px;color:var(--ink);text-decoration:none;font-weight:500}
+.menu-list a:hover{background:var(--paper)}
+@media (min-width:900px){.menu{display:none}}
+.top .actions{display:flex;align-items:center;gap:8px}
+.crumbs{font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--grey);margin:0 0 14px}
+.crumbs ol{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.crumbs li+li::before{content:"/";margin-right:6px;color:var(--hair)}
+.crumbs a{color:var(--grey)}
+.prose{max-width:40em}
+.prose h2{margin-top:6px}
+.prose ul{padding-left:1.2em;margin:0 0 1em}
+.prose li{margin-bottom:6px}
+.one-review{background:#fff;border:1px solid var(--hair);border-radius:var(--r);padding:22px;max-width:40em}
+.one-review blockquote{margin:0 0 10px;font-family:var(--serif);font-style:italic;font-size:22px;line-height:1.35;color:var(--ink)}
+.one-review .who{font-weight:600}
+.one-review .meta{font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey)}
+.links{display:grid;gap:10px;margin-top:14px}
+@media (min-width:700px){.links{grid-template-columns:1fr 1fr 1fr}}
+.links a{display:block;background:#fff;border:1px solid var(--hair);border-radius:14px;padding:14px 16px;color:var(--ink);text-decoration:none;font-weight:600}
+.links a:hover{border-color:var(--ink)}
+.card a.more{display:inline-block;margin-top:8px;font-weight:600}
+.pending{border:1px dashed var(--red);border-radius:14px;padding:14px 16px;background:#fff;font-size:15px;color:var(--text);margin:16px 0}
+.faq details{background:#fff;border:1px solid var(--hair);border-radius:14px;margin-bottom:10px}
+.faq summary{cursor:pointer;padding:16px 18px;font-weight:600;font-size:18px;list-style:none;display:flex;justify-content:space-between;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-family:var(--mono);color:var(--red);font-size:22px;line-height:1}
+.faq details[open] summary::after{content:"\2212"}
+.faq .a{padding:0 18px 16px}
+.faq .a p:last-child{margin-bottom:0}
+.flinks{list-style:none;margin:0;padding:0;columns:2;gap:16px}
+.flinks li{margin-bottom:6px}
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "AutoBodyShop", "@id": "https://necollision.com/#shop", "name": "New England Collision", "url": "https://necollision.com/", "telephone": "+1-203-389-6400", "image": "https://necollision.com/og-image-1200x630.png", "logo": "https://necollision.com/assets/img/nec-logo-320.webp", "address": {"@type": "PostalAddress", "streetAddress": "465 Derby Ave", "addressLocality": "West Haven", "addressRegion": "CT", "postalCode": "06516", "addressCountry": "US"}, "geo": {"@type": "GeoCoordinates", "latitude": 41.30659, "longitude": -72.97122}, "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "08:00", "closes": "16:30"}], "foundingDate": "1996", "knowsLanguage": ["en", "es"], "areaServed": ["West Haven", "New Haven", "Orange", "Milford", "Hamden", "East Haven", "Branford", "Guilford", "Madison", "Seymour", "Shelton"], "sameAs": ["https://www.facebook.com/newenglandcollision"], "hasMap": "https://www.google.com/maps/search/?api=1&query=New+England+Collision+465+Derby+Ave+West+Haven+CT+06516"}</script>
 <script src="assets/js/tracker.js" defer></script>
@@ -169,8 +206,9 @@ footer .label{color:#a39d93}
 <div class="staging">STAGING PREVIEW. Not the live site. Items marked [CONFIRM] need a yes before launch.</div>
 <header class="top"><div class="wrap">
 <a class="brand" href="./"><img src="assets/img/nec-logo-160.webp" width="52" height="52" alt="New England Collision logo"><span><b>New England Collision</b><small>West Haven, CT</small></span></a>
-<nav class="nav" aria-label="Main"><a href="./#how">How it works</a><a href="./#reviews">Reviews</a><a href="./#insurance">Insurance</a><a href="./#fix">What we fix</a><a href="./#visit">Visit</a></nav>
-<a class="btn btn-call" href="tel:+12033896400" data-where="header" aria-label="Call (203) 389-6400"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg><span class="short">Call</span><span class="full">Call (203) 389-6400</span></a>
+<nav class="nav" aria-label="Main"><a href="services/">Services</a><a href="services/insurance-claim-help/">Insurance help</a><a href="your-right-to-choose/">Your right to choose</a><a href="faq/">FAQ</a><a href="about/">About</a><a href="contact/">Contact</a></nav>
+<div class="actions"><details class="menu"><summary>Menu</summary><nav class="menu-list" aria-label="Menu"><a href="./">Home</a><a href="services/">Services</a><a href="services/insurance-claim-help/">Insurance help</a><a href="your-right-to-choose/">Your right to choose</a><a href="faq/">FAQ</a><a href="about/">About</a><a href="contact/">Contact</a></nav></details>
+<a class="btn btn-call" href="tel:+12033896400" data-where="header" aria-label="Call (203) 389-6400"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg><span class="short">Call</span><span class="full">Call (203) 389-6400</span></a></div>
 </div></header>
 <main id="main">
 
@@ -290,7 +328,7 @@ footer .label{color:#a39d93}
 <h2 id="ins-h">In Connecticut, you choose the shop.</h2>
 <p class="quote-law">You have the right to choose the licensed repair shop where the damage to your vehicle will be repaired.</p>
 <p class="quote-law">Your insurance company cannot require you to use a specific repair shop.</p>
-<p class="src">Source: Connecticut General Statutes, Sec. 38a-354. <a href="https://www.cga.ct.gov/current/pub/chap_700.htm#sec_38a-354" target="_blank" rel="noopener">Read the law</a>.</p>
+<p class="src">Source: Connecticut General Statutes, Sec. 38a-354. <a href="https://www.cga.ct.gov/current/pub/chap_700.htm#sec_38a-354" target="_blank" rel="noopener">Read the law</a>. More on <a href="your-right-to-choose/">your right to choose</a>.</p>
 <div class="cards">
 <div class="card"><h3>All insurance companies welcome</h3><p>We're an independent shop. Whoever your insurer is, you can bring your car to us.</p></div>
 <div class="card"><h3>Inspections inside the shop</h3><p>Insurance inspections happen inside our shop, so you and the adjuster stay out of the snow.</p></div>
@@ -303,12 +341,12 @@ footer .label{color:#a39d93}
 <h2 id="fix-h">Collision repair, start to finish</h2>
 <p>These are the services listed on our old website. <span class="conf">[from old site, CONFIRM still offered]</span></p>
 <div class="cards">
-<div class="card"><h3>Collision and auto body repair</h3><p>Dents, crushed panels and bumpers after a crash, big or small.</p></div>
-<div class="card"><h3>Paint and computerized color matching</h3><p>Paint work that matches the rest of your car.</p></div>
-<div class="card"><h3>Frame straightening</h3><p>Getting the structure of the car back where it belongs.</p></div>
-<div class="card"><h3>Insurance claim assistance</h3><p>Help with your insurance claim.</p></div>
-<div class="card"><h3>Rental car delivery and pickup</h3><p>Some exceptions apply.</p></div>
-<div class="card"><h3>Need a tow?</h3><p>We don't tow, but we know trusted local tow companies and can call them for you.</p></div>
+<div class="card"><h3>Collision and auto body repair</h3><p>Dents, crushed panels and bumpers after a crash, big or small.</p><a class="more" href="services/collision-repair/">Collision repair</a></div>
+<div class="card"><h3>Paint and computerized color matching</h3><p>Paint work that matches the rest of your car.</p><a class="more" href="services/paint-color-matching/">Paint and color matching</a></div>
+<div class="card"><h3>Frame straightening</h3><p>Getting the structure of the car back where it belongs.</p><a class="more" href="services/frame-straightening/">Frame straightening</a></div>
+<div class="card"><h3>Insurance claim assistance</h3><p>Help with your insurance claim.</p><a class="more" href="services/insurance-claim-help/">Insurance claim help</a></div>
+<div class="card"><h3>Rental car delivery and pickup</h3><p>Some exceptions apply.</p><a class="more" href="services/towing-rental-help/">Towing and rental help</a></div>
+<div class="card"><h3>Need a tow?</h3><p>We don't tow, but we know trusted local tow companies and can call them for you.</p><a class="more" href="services/towing-rental-help/">Towing and rental help</a></div>
 </div>
 <div class="thumbs">
 <img src="assets/img/paint-booth-400.webp" width="400" height="400" loading="lazy" decoding="async" alt="A painter spraying a car part in the paint booth at New England Collision">
@@ -338,7 +376,8 @@ footer .label{color:#a39d93}
 <div><p class="label">New England Collision</p>
 <p>465 Derby Ave<br>West Haven, CT 06516<br><a href="tel:+12033896400" data-where="footer">(203) 389-6400</a></p>
 <p>Family owned. 30 years, same location.<br>Se habla español.</p></div>
-<div><p class="label">Hours</p><p>Mon to Fri<br>8:00 AM to 4:30 PM</p></div>
+<div><p class="label">Hours</p><p>Mon to Fri<br>8:00 AM to 4:30 PM</p>
+<p class="label">Pages</p><ul class="flinks"><li><a href="services/">Services</a></li><li><a href="services/insurance-claim-help/">Insurance help</a></li><li><a href="your-right-to-choose/">Your right to choose</a></li><li><a href="faq/">FAQ</a></li><li><a href="about/">About</a></li><li><a href="contact/">Contact</a></li><li><a href="services/collision-repair/">Collision repair</a></li><li><a href="services/dent-repair/">Dent repair</a></li><li><a href="services/paint-color-matching/">Paint and color matching</a></li><li><a href="services/frame-straightening/">Frame straightening</a></li><li><a href="services/insurance-claim-help/">Insurance claim help</a></li><li><a href="services/towing-rental-help/">Towing and rental help</a></li></ul></div>
 <div><p class="label">Find us</p><p><a href="https://www.google.com/maps/search/?api=1&query=New+England+Collision+465+Derby+Ave+West+Haven+CT+06516" target="_blank" rel="noopener" data-where="footer">Directions</a><br>
 <a href="https://www.facebook.com/newenglandcollision" target="_blank" rel="noopener" data-where="footer">Facebook</a> <span class="conf">[CONFIRM page URL]</span><br>
 <a href="https://www.google.com/maps/search/New+England+Collision+465+Derby+Ave+West+Haven+CT?hl=en" target="_blank" rel="noopener" data-where="reviews">Google reviews</a><br>
