@@ -178,3 +178,4 @@ footer .label{color:#a39d93}
 .store{margin:0 0 20px}.store img{display:block;width:100%;height:auto;border-radius:var(--r);background:var(--bone)}
 .steps-list{padding-left:1.3em}.steps-list li{margin:0 0 10px}
 table.towns{width:100%;border-collapse:collapse;margin:0 0 16px;font-size:16px}table.towns th,table.towns td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line,#CBC4B8)}table.towns thead th{font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#5E5850}
+.town{scroll-margin-top:80px}.town h2{margin-top:0}

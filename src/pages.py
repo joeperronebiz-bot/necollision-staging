@@ -246,9 +246,7 @@ def contact_page():
 <dt>Language</dt><dd>Se habla español</dd>
 <dt>Facebook</dt><dd><a href="{FB}" target="_blank" rel="noopener" data-where="contact">New England Collision on Facebook</a> {C('CONFIRM page URL')}</dd></dl>
 <div class="ctas"><a class="btn btn-call" href="{TEL}" data-where="contact">{ICON_PHONE}Call {TELTXT}</a><a class="btn btn-soft" href="{MAPS}" target="_blank" rel="noopener" data-where="contact">Get directions</a></div>
-</div><div class="prose"><figure class="store"><img src="{base}assets/img/storefront-892.webp" srcset="{base}assets/img/storefront-480.webp 480w, {base}assets/img/storefront-892.webp 892w" sizes="(min-width:820px) 520px, 100vw" width="892" height="338" loading="lazy" decoding="async" alt="The New England Collision storefront at 465 Derby Ave, with a red awning, the black shop sign and the 465 sign out front."><figcaption class="cap">Our storefront at 465 Derby Ave.</figcaption></figure>
-{pending('Storefront photo: from NEC\u2019s business listing photos (Loc8), date unknown. Cropped to leave out cars, plates, a billboard and an older wall sign. Confirm the storefront still looks like this and Joe is okay using it.')}
-<h2>Finding us</h2>
+</div><div class="prose"><h2>Finding us</h2>
 <p>We're at 465 Derby Ave in West Haven.</p>
 <p>Tap Get directions and your map app will take you right to our door. Coming from a nearby town? See <a href="{base}towns/">towns we serve</a> for the drive from each one.</p>
 </div></div></section>'''

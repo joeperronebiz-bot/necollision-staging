@@ -15,7 +15,7 @@ TOWNS = [
    'Turn left onto Derby Avenue (Route 34) and drive about a mile to 465.'],
   'New Haven','South Central Connecticut','134,023','was settled','1638','https://www.newhavenct.gov/','New_Haven,_Connecticut','Yajayra Torres'),
  ('orange','Orange','Orange Town Hall',
-  ['From Town Hall, take Orange Center Road (Route 152) northwest for about 1.7 miles.',
+  ['From Town Hall, take Orange Center Road (Route 152) for about 1.7 miles.',
    'Turn right onto the Derby Turnpike (Route 34) and stay on Route 34 east for about 3 miles into West Haven.',
    'We\u2019re at 465 Derby Avenue, near Forest Road (Route 122).'],
   'New Haven','South Central Connecticut','14,280','was incorporated','1822','https://www.orange-ct.gov/','Orange,_Connecticut','Frank Miele'),
@@ -26,7 +26,8 @@ TOWNS = [
   'New Haven','South Central Connecticut','50,558','was settled','1639','https://www.milfordct.us/','Milford,_Connecticut','Ryan D.'),
  ('hamden','Hamden','the Hamden Government Center',
   ['From the Government Center on Dixwell Avenue, take Whitney Avenue to the Wilbur Cross Parkway (Route 15) and follow it about 5 miles.',
-   'Take the exit for Route 69 toward New Haven and Woodbridge, then follow Whalley Avenue.',
+   'Take the exit for Route 69 toward New Haven and Woodbridge onto Whalley Avenue.',
+   'Turn left to stay on Whalley Avenue (Route 63), then turn right onto Dayton Street and left onto Fountain Street.',
    'Turn right onto Forest Road (Route 122) and follow it about 1.4 miles.',
    'Turn right onto Derby Avenue (Route 34). We\u2019re at 465.'],
   'New Haven','South Central Connecticut','61,169','was incorporated','1786','https://www.hamden.com/','Hamden,_Connecticut','Alissa Stover'),
@@ -76,56 +77,34 @@ def route_src(name):
             f'<a href="https://project-osrm.org/" target="_blank" rel="noopener">OSRM</a> ({r["o_mi"]:g} mi, {r["o_min"]} min), checked Nov 24, 2026. '
             f'Times are without traffic. Map data \u00a9 <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a>.')
 
-def town_page(t, idx):
-    slug, name, origin, steps, county, region, pop, estl, esty, site, wiki, rev = t
-    path = f'towns/{slug}/'; base = '../../'
-    crumbs = [('Home',''),('Towns we serve','towns/'),(name, path)]
-    miles, mins = drive(name)
+def dirs_link(name):
     oq = ROUTES[name]['origin'] + ', ' + name + ', CT'
-    dirs = f'https://www.google.com/maps/dir/?api=1&origin={oq.replace(" ","+")}&destination={DEST_Q}'
-    here = name == 'West Haven'
-    h1 = 'Collision repair in West Haven' if here else f'Collision repair for {name} drivers'
-    lead = (f"We\u2019re right here in West Haven. From City Hall, our shop at 465 Derby Ave is {miles}, {mins} without traffic." if here else
-            f"From {origin} to our shop at 465 Derby Ave in West Haven is {miles}, {mins} without traffic.")
-    far = ROUTES[name]['v_mi'] > 12
-    start = (f'<p>Long drive after a rough day? You can start from home. Send photos of the damage from your phone, and our shop looks them over.</p>' if far else
-             f'<p>Not sure if the car should be driven? Call us first, and we\u2019ll talk it through with you. We don\u2019t tow, but we know trusted local tow companies and can call them for you.</p>')
-    others = ''.join(f'<a href="{base}towns/{s}/">{n}</a>' for s,n,*_ in TOWNS if s != slug)
-    body = hero(base, crumbs, f'Serving {name}', h1, lead, 'town-hero') + f'''
-<section><div class="wrap grid2"><div class="prose">
-<h2>Getting here from {name}</h2>
-<ol class="steps-list">{''.join(f'<li>{E(s)}</li>' for s in steps)}</ol>
-<p class="src">{route_src(name)}</p>
-<div class="ctas"><a class="btn btn-soft" href="{dirs}" target="_blank" rel="noopener" data-where="town-directions">Directions from {E(name)}</a></div>
-</div><div class="prose">
-<h2>Before you head over</h2>
-{start}
-<p>Mon to Fri, 8:00 AM to 4:30 PM. All insurance companies are welcome, and se habla espa\u00f1ol.</p>
-<p>In Connecticut, the choice of repair shop is yours. <a href="{base}your-right-to-choose/">Read what the law says</a>.</p>
-</div></div></section>
-<section class="bone"><div class="wrap prose"><p class="label">About {name}</p>
-<p>{name} is in {county} County, in the {region} planning region. Its population was {pop} in the 2020 U.S. Census. {name} {estl} in {esty}.</p>
-<p class="src">Source: <a href="https://en.wikipedia.org/wiki/{wiki}" target="_blank" rel="noopener">Wikipedia, {E(wiki.replace("_"," "))}</a>, citing the 2020 U.S. Census. Town website: <a href="{site}" target="_blank" rel="noopener">{site.split("//")[1].rstrip("/")}</a>.</p>
-</div></section>
-<section class="alt"><div class="wrap"><p class="label">What a customer said</p>{review_block(rev)}</div></section>
-<section><div class="wrap"><p class="label">Nearby towns</p><div class="links">{others}</div>
-<div class="ctas"><a class="btn btn-call" href="{TEL}" data-where="town-bottom">{ICON_PHONE}Call {TELTXT}</a></div></div></section>'''
-    title = ('Body Shop in West Haven, CT, on Derby Ave | New England Collision' if here else f'Collision Repair Near {name}, CT | New England Collision, West Haven')
-    desc = (f'From {name} to 465 Derby Ave, West Haven: {miles}, {mins}. Family owned, 30 years, same location. Call (203) 389-6400.')
-    return path, page(path, title, desc, body, base, crumbs=crumbs)
+    return f'https://www.google.com/maps/dir/?api=1&origin={oq.replace(" ","+")}&destination={DEST_Q}'
 
 def towns_hub():
+    # Mirror P3 FIX 1: one hub, town sections with in-page anchors, no separate town pages.
     base = '../'; crumbs = [('Home',''),('Towns we serve','towns/')]
-    rows = ''
-    for s,n,*_ in TOWNS:
+    rows = ''; secs = ''
+    for s,n,origin,steps,*_ in TOWNS:
         miles, mins = drive(n)
-        rows += f'<tr><th scope="row"><a href="{base}towns/{s}/">{n}</a></th><td>{miles.replace("about ","")}</td><td>{mins.replace("about ","")}</td></tr>'
-    body = hero(base, crumbs, 'Towns we serve', 'Towns we serve', "Our shop is at 465 Derby Ave in West Haven. Here\u2019s how far it is from towns nearby, with directions for each.", 'towns-hero') + f'''
-<section><div class="wrap prose"><table class="towns"><thead><tr><th scope="col">From</th><th scope="col">Distance</th><th scope="col">Drive time</th></tr></thead><tbody>{rows}</tbody></table>
-<p class="src">Distances and times are from each town or city hall to our shop, worked out with two free routers on OpenStreetMap data (Valhalla and OSRM), checked Nov 24, 2026. Times are without traffic. Map data \u00a9 <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a>.</p>
-{ctas(base,'towns-bottom')}</div></section>'''
+        rows += f'<tr><th scope="row"><a href="#{s}">{n}</a></th><td>{miles.replace("about ","")}</td><td>{mins.replace("about ","")}</td></tr>'
+        li = ''.join(f'<li>{E(x)}</li>' for x in steps)
+        secs += (f'<section class="town" id="{s}"><div class="wrap prose"><h2>From {n}</h2>\n'
+                 f'<p>From {origin} to our shop at 465 Derby Ave is {miles}, {mins} without traffic.</p>\n'
+                 f'<ol class="steps-list">{li}</ol>\n'
+                 f'<div class="ctas"><a class="btn btn-soft" href="{dirs_link(n)}" target="_blank" rel="noopener" data-where="town-directions">Directions from {E(n)}</a></div></div></section>\n')
+    shared = ("Not sure if the car should be driven? Call us first, and we\u2019ll talk it through with you. We don\u2019t tow, but we know trusted local tow companies "
+              "and can call them for you. Coming from farther out? You can start from home. Send photos of the damage from your phone, and our shop looks them over.")
+    src = ('Distances and times are from each town or city hall to our shop, worked out with two free routers on OpenStreetMap data '
+           '(<a href="https://github.com/valhalla/valhalla" target="_blank" rel="noopener">Valhalla</a> and <a href="https://project-osrm.org/" target="_blank" rel="noopener">OSRM</a>), '
+           'checked Nov 24, 2026. Times are without traffic. Exit numbers are current as of Nov 24, 2026. '
+           'Map data \u00a9 <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a>.')
+    body = (hero(base, crumbs, 'Towns we serve', 'Towns we serve', "Our shop is at 465 Derby Ave in West Haven. Here\u2019s how far it is from towns nearby, with directions for each.", 'towns-hero')
+            + f'\n<section><div class="wrap prose"><table class="towns"><thead><tr><th scope="col">From</th><th scope="col">Distance</th><th scope="col">Drive time</th></tr></thead><tbody>{rows}</tbody></table>\n'
+            + f'<p>{shared}</p>\n</div></section>\n' + secs
+            + f'<section><div class="wrap prose"><p class="src">{src}</p>\n{ctas(base,"towns-bottom")}</div></section>')
     return 'towns/', page('towns/', 'Towns We Serve | New England Collision, West Haven CT',
-      'Drive distance and time to 465 Derby Ave, West Haven from New Haven, Orange, Milford, Hamden, East Haven, Branford, Guilford, Madison, Seymour and Shelton.', body, base, crumbs=crumbs)
+      'Drive distance, time and directions to 465 Derby Ave, West Haven from New Haven, Orange, Milford, Hamden, East Haven, Branford, Guilford, Madison, Seymour and Shelton.', body, base, crumbs=crumbs)
 
 def towns_pages():
-    return [towns_hub()] + [town_page(t,i) for i,t in enumerate(TOWNS)]
+    return [towns_hub()]
