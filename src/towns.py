@@ -72,7 +72,7 @@ def drive(name):
 def route_src(name):
     r = ROUTES[name]
     return (f'Source: drive routes from {E(r["origin"])} to 465 Derby Ave on OpenStreetMap data, worked out with two free routers, '
-            f'<a href="https://valhalla1.openstreetmap.de/" target="_blank" rel="noopener">Valhalla</a> ({r["v_mi"]:g} mi, {r["v_min"]} min) and '
+            f'<a href="https://github.com/valhalla/valhalla" target="_blank" rel="noopener">Valhalla</a> ({r["v_mi"]:g} mi, {r["v_min"]} min) and '
             f'<a href="https://project-osrm.org/" target="_blank" rel="noopener">OSRM</a> ({r["o_mi"]:g} mi, {r["o_min"]} min), checked Nov 24, 2026. '
             f'Times are without traffic. Map data \u00a9 <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a>.')
 
