@@ -74,7 +74,7 @@ def page(path, title, desc, body, base, ld=None, crumbs=None, og_type='website')
 <a class="skip" href="#main">Skip to content</a>
 {staging}
 <header class="top"><div class="wrap">
-<a class="brand" href="{base or './'}" aria-label="New England Collision home"><img src="{base}assets/img/nec-logo-160.webp" width="52" height="52" alt="New England Collision logo"><span><b>New England Collision</b><small>West Haven, CT</small></span></a>
+<a class="brand" href="{base or './'}"><img src="{base}assets/img/nec-logo-160.webp" width="52" height="52" alt="New England Collision logo"><span><b>New England Collision</b><small>West Haven, CT</small></span></a>
 <nav class="nav" aria-label="Main">{NAV(base)}</nav>
 <a class="btn btn-call" href="{TEL}" data-where="header" aria-label="Call {TELTXT}">{ICON_PHONE}<span class="short">Call</span><span class="full">Call {TELTXT}</span></a>
 </div></header>
